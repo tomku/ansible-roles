@@ -1,0 +1,15 @@
+---
+- name: Install SBCL
+  apt: pkg=sbcl state=present
+
+- name: Download Quicklisp
+  get_url: url=http://beta.quicklisp.org/quicklisp.lisp
+           dest=/tmp/quicklisp.lisp
+
+- name: Install Quicklisp
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  script: ql-install.sh
+
+- name: Add Quicklisp to SBCL's config file
+  copy: src=sbclrc dest=/home/{{ interactive_user }}/.sbclrc

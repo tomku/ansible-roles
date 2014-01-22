@@ -1,0 +1,16 @@
+---
+- name: Add the llvm APT key
+  apt_key: url=http://llvm.org/apt/llvm-snapshot.gpg.key state=present
+
+- name: Add the llvm PPA
+  apt_repository: repo="deb http://llvm.org/apt/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }} main" state=present
+
+- name: Install the LLVM/Clang packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - clang-3.4 
+    - clang-3.4-doc 
+    - lldb-3.4 
+    - llvm-3.4
+    - llvm-3.4-doc
+

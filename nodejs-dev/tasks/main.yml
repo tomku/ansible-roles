@@ -1,0 +1,6 @@
+---
+- name: Add the Node PPA
+  apt_repository: repo="ppa:chris-lea/node.js"
+
+- name: Install Node.js
+  apt: pkg=nodejs state=present

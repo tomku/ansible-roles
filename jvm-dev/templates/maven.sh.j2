@@ -1,0 +1,1 @@
+export PATH=/opt/apache-maven-{{ maven_version }}/bin:$PATH

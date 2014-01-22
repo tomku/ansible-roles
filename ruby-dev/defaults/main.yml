@@ -1,0 +1,7 @@
+---
+install_ruby1.8: false
+install_ruby1.9.1: false
+install_ruby2.0: false
+install_ruby2.1: true
+
+default_ruby: "2.1"

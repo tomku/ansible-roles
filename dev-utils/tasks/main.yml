@@ -1,0 +1,38 @@
+---
+- name: Install useful packages.
+  apt: pkg={{ item }} state=present
+  with_items:
+    - tmux
+    - tree
+    - htop
+    - curl
+    - exuberant-ctags
+    - ragel
+    - scons
+    - cmake
+    - mc
+    - sqlite3
+    - subversion
+    - git
+    - build-essential
+    - nasm
+    - pinfo
+    - task
+    - mercurial
+    - phantomjs
+    - cscope
+    - zsh
+    - vim
+    - gdb
+    - valgrind
+
+- name: Add the Silver Searcher PPA
+  apt_repository: repo="ppa:mizuno-as/silversearcher-ag" state=present
+
+- name: Install The Silver Searcher
+  apt: pkg=silversearcher-ag state=present
+
+- name: Install standalone Ack
+  get_url: url=http://beyondgrep.com/ack-2.12-single-file
+           dest=/usr/local/bin/ack
+           owner=root group=root mode=0755

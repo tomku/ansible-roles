@@ -1,0 +1,25 @@
+---
+- name: Download Anaconda
+  get_url: url=http://repo.continuum.io/miniconda/Miniconda-2.2.2-Linux-x86.sh
+           dest=/tmp/Miniconda-Linux.sh
+           owner=root group=root owner=0755
+
+- name: Install Anaconda
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: bash /tmp/Miniconda-Linux.sh -b -p /home/{{ interactive_user }}/.python creates=/home/{{ interactive_user }}/.python
+
+- name: Update Anaconda
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: /home/{{ interactive_user }}/.python/bin/conda update --yes -q conda
+
+- name: Add the PyPy PPA
+  apt_repository: repo=ppa:pypy/ppa state=present
+
+- name: Install the PyPy package
+  apt: pkg=pypy state=present
+
+# TODO: Install pip by default
+# TODO: Install IPython and configure to serve notebooks out of /vagrant
+

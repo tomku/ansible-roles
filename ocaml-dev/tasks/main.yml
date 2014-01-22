@@ -1,0 +1,19 @@
+---
+- name: Add the OPAM PPA
+  apt_repository: repo="ppa:avsm/ppa"
+
+- name: Install the OPAM and Ocaml packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - curl
+    - build-essential
+    - m4
+    - opam
+    - ocaml
+    - ocaml-native-compilers
+
+- name: Initialize OPAM
+  sudo_user: "{{ interactive_user }}"
+  sudo: True
+  shell: opam init -a creates=/home/{{ interactive_user }}/.opam
+  when: ocaml_initialize_opam

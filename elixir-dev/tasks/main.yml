@@ -1,0 +1,12 @@
+---
+- name: Download Elixir
+  get_url: url=https://github.com/elixir-lang/elixir/releases/download/v0.12.2/v0.12.2.zip dest=/tmp/elixir.zip
+
+- name: Create Elixir's directory
+  file: path=/opt/elixir state=directory
+
+- name: Unzip Elixir
+  unarchive: src=/tmp/elixir.zip dest=/opt/elixir
+
+- name: Add Elixir to the system path
+  copy: src=elixir.sh dest=/etc/profile.d/elixir.sh

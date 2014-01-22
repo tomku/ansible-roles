@@ -1,0 +1,24 @@
+---
+- name: Download the io x86 package
+  get_url: url=http://iobin.suspended-chord.info/linux/iobin-linux-x86-deb-current.zip
+           dest=/tmp/iobin.zip
+  when: ansible_architecture == "i386"
+
+- name: Download the io x64 package
+  get_url: url=http://iobin.suspended-chord.info/linux/iobin-linux-x86-deb-current.zip
+           dest=/tmp/iobin.zip
+  when: ansible_architecture == "x86_64"
+
+- name: Install unzip
+  apt: pkg=unzip state=present
+
+- name: Unzip the io package
+  unarchive: src=/tmp/iobin.zip dest=/tmp
+
+- name: Install the io x86 package
+  command: dpkg -i /tmp/IoLanguage-{{ io_version }}-Linux-x86.deb creates=/usr/local/bin/io
+  when: ansible_architecture == "i386"
+
+- name: Install the io x64 package
+  command: dpkg -i /tmp/IoLanguage-{{ io_version }}-Linux-x64.deb creates=/usr/local/bin/io
+  when: ansible_architecture == "x86_64"

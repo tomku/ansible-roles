@@ -1,0 +1,11 @@
+---
+- name: Add the CRAN APT key
+  apt_key: id=E084DAB9 url=http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x51716619E084DAB9
+
+- name: Add the CRAN APT repository
+  apt_repository: repo="deb {{ cran_mirror }} {{ ansible_distribution_release }}/" state=present
+
+- name: Install R's packages
+  apt: pkg=r-recommended state=present
+
+# TODO: Install RStudio and configure it to run out of /vagrant

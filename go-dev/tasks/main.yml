@@ -1,0 +1,20 @@
+---
+- name: Get the 32-bit Go tarball
+  get_url: url=https://go.googlecode.com/files/go{{ go_version }}.linux-386.tar.gz
+           dest=/tmp/go.tar.gz
+  when: ansible_architecture == "i386"
+
+- name: Get the 64-bit Go tarball
+  get_url: url=https://go.googlecode.com/files/go{{ go_version }}.linux-amd64.tar.gz
+           dest=/tmp/go.tar.gz
+  when: ansible_architecture == "x86_64"
+
+- name: Unpack the Go tarball
+  unarchive: src=/tmp/go.tar.gz dest=/usr/local
+
+- name: Add the Go bin folder to PATH
+  copy: src=gopath.sh
+        dest=/etc/profile.d/gopath.sh
+        owner=root group=root mode=644
+
+# TODO: Figure out if I should be setting $GOPATH, possibly to /vagrant

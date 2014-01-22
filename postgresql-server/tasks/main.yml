@@ -1,0 +1,16 @@
+---
+- name: Add the PostgreSQL APT key
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present
+
+- name: Add the PostgreSQL APT repository
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' state=present
+
+- name: Install the PostgreSQL packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - postgresql-9.3
+    - libpq-dev
+    - python-psycopg2
+
+- name: Ensure logrotate is uninstalled
+  apt: pkg=logrotate state=absent

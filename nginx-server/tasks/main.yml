@@ -1,0 +1,25 @@
+---
+- name: Add the nginx PPA
+  apt_repository: repo=ppa:nginx/stable
+
+- name: Install nginx
+  apt: pkg=nginx state=present
+  notify: Start nginx
+
+- name: Add the vagrant folder as an availble vhost
+  template: src=vagrant-folder.conf.j2 dest=/etc/nginx/sites-available/vagrant-folder.conf
+  notify: Reload nginx
+  when: interactive_user == "vagrant"
+
+- name: Disable the default vhost
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: Reload nginx
+
+- name: Enable the vagrant folder vhost
+  file: src=/etc/nginx/sites-available/vagrant-folder.conf
+        dest=/etc/nginx/sites-enabled/vagrant-folder.conf state=link
+  notify: Reload nginx
+
+- name: Install php for nginx
+  apt: pkg=php5-fpm state=present
+

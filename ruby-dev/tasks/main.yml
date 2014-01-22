@@ -1,0 +1,39 @@
+---
+- name: Install the Brightbox PPA
+  apt_repository: repo=ppa:brightbox/ruby-ng
+
+- name: Install ruby-switch
+  apt: pkg=ruby-switch state=present
+
+- name: Install ruby 1.8
+  apt: pkg=ruby1.8-full
+  when: install_ruby1.8
+
+- name: Install ruby 1.9.3
+  apt: pkg=ruby1.9.3
+  when: install_ruby1.9.1
+
+- name: Install Ruby 2.0
+  apt: pkg={{ item }}
+  with_items:
+    - ruby2.0
+    - ruby2.0-dev
+    - ruby2.0-doc
+  when: install_ruby2.0
+
+- name: Install Ruby 2.1
+  apt: pkg={{ item }}
+  with_items:
+    - ruby2.1
+    - ruby2.1-dev
+    - ruby2.1-doc
+  when: install_ruby2.1
+
+- name: Set the default Ruby
+  command: ruby-switch --set ruby{{ item }}
+  with_items:
+    - "1.8"
+    - "1.9.1"
+    - "2.0"
+    - "2.1"
+  when: item == default_ruby

@@ -1,0 +1,8 @@
+---
+- name: Install the Haskell Platform
+  apt: pkg=haskell-platform state=present
+
+- name: Update cabal's cache
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: cabal update creates=/home/{{ interactive_user }}/.cabal/packages/hackage.haskell.org

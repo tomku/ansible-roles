@@ -1,0 +1,6 @@
+---
+- name: Add the Rust PPA
+  apt_repository: repo="ppa:hansjorg/rust"
+
+- name: Install the Rust compiler
+  apt: pkg=rust-{{ rust_version }} state=present

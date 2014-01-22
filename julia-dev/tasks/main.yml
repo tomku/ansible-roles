@@ -1,0 +1,9 @@
+---
+- name: Install the Julia PPA
+  apt_repository: repo=ppa:staticfloat/juliareleases state=present
+
+- name: Install the Julia packages
+  apt: pkg=julia state=present
+
+# TODO: Add an option for nightlies
+# TODO: IJulia

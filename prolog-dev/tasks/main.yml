@@ -1,0 +1,6 @@
+---
+- name: Install the SWI-Prolog PPA
+  apt_repository: repo=ppa:swi-prolog/stable state=present
+
+- name: Install the SWI-Prolog package
+  apt: pkg=swi-prolog state=present

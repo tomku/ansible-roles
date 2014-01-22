@@ -1,0 +1,6 @@
+---
+- name: Install the Mozart/Oz packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - mozart
+    - mozart-stdlib

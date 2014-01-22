@@ -1,0 +1,43 @@
+---
+- name: Create the .vim folder for vundle
+  sudo: True
+  sudo_user: "{{ interactive_user | mandatory }}"
+  file: path=/home/{{ interactive_user | mandatory }}/.vim/bundle state=directory
+        owner={{ interactive_user | mandatory }} group={{ interactive_user | mandatory }}
+
+- name: Clone vundle
+  sudo: True
+  sudo_user: "{{ interactive_user | mandatory }}"
+  git: repo=https://github.com/gmarik/vundle dest=/home/{{ interactive_user | mandatory }}/.vim/bundle/vundle
+
+- name: Clone oh-my-zsh
+  sudo: True
+  sudo_user: "{{ interactive_user | mandatory }}"
+  git: repo=https://github.com/robbyrussell/oh-my-zsh 
+       dest=/home/{{ interactive_user | mandatory }}/.oh-my-zsh
+
+- name: Clone my dotfiles
+  sudo: True
+  sudo_user: "{{ interactive_user | mandatory }}"
+  git: repo=https://github.com/tomku/dotfiles.git
+       dest=/home/{{ interactive_user | mandatory }}/.dotfiles
+
+- name: Bootstrap the rest of the dotfiles
+  sudo: True
+  sudo_user: "{{ interactive_user | mandatory }}"
+  command: /home/{{ interactive_user | mandatory }}/.dotfiles/bootstrap.sh
+
+- name: Change the {{ interactive_user | mandatory }} user's shell to zsh
+  command: chsh -s /usr/bin/zsh {{ interactive_user | mandatory }}
+
+# This is a hack.  There's no good way to check to see if BundleInstall has
+# been successfully run short of running it again, so I picked a random repo
+# that I probably won't remove any time soon.
+- name: Install all of vim's bundles
+  sudo: True
+  sudo_user: "{{ interactive_user | mandatory }}"
+  shell: vim +BundleInstall +bd +qall 2&> /dev/null creates=/home/{{ interactive_user | mandatory }}/.vim/bundle/vim-polyglot
+
+- name: Delete vim's session file
+  file: path=/home/{{ interactive_user | mandatory }}/.vim/sessions/default.vim state=absent
+

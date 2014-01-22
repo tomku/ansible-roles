@@ -1,0 +1,12 @@
+---
+- name: Add the MongoDB repo key
+  apt_key: url=http://docs.mongodb.org/10gen-gpg-key.asc state=present
+
+- name: Add the MongoDB APT repository
+  apt_repository: repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" state=present
+
+- name: Install the MongoDB package
+  apt: pkg=mongodb-10gen state=present
+
+- name: Ensure the MongoDB service is started and enabled
+  service: name=mongodb state=started enabled=true
