@@ -14,11 +14,13 @@
 - name: Disable the default vhost
   file: path=/etc/nginx/sites-enabled/default state=absent
   notify: Reload nginx
+  when: interactive_user == "vagrant"
 
 - name: Enable the vagrant folder vhost
   file: src=/etc/nginx/sites-available/vagrant-folder.conf
         dest=/etc/nginx/sites-enabled/vagrant-folder.conf state=link
   notify: Reload nginx
+  when: interactive_user == "vagrant"
 
 - name: Install php for nginx
   apt: pkg=php5-fpm state=present
