@@ -5,7 +5,7 @@
   when: ansible_architecture == "i386"
 
 - name: Download the io x64 package
-  get_url: url=http://iobin.suspended-chord.info/linux/iobin-linux-x86-deb-current.zip
+  get_url: url=http://iobin.suspended-chord.info/linux/iobin-linux-x64-deb-current.zip
            dest=/tmp/iobin.zip
   when: ansible_architecture == "x86_64"
 
