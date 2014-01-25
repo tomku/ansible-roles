@@ -2,6 +2,10 @@
 - name: Add the llvm APT key
   apt_key: url=http://llvm.org/apt/llvm-snapshot.gpg.key state=present
 
+- name: Add the Ubuntu Toolchain test PPA
+  apt_repository: repo=ppa:ubuntu-toolchain-r/test state=present
+  when: ansible_distribution_version|int < 13.10
+
 - name: Add the llvm PPA
   apt_repository: repo="deb http://llvm.org/apt/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }} main" state=present
 
