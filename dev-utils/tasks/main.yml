@@ -28,9 +28,11 @@
 
 - name: Add the Silver Searcher PPA
   apt_repository: repo="ppa:mizuno-as/silversearcher-ag" state=present
+  when: ansible_distribution_version|float > 12.10
 
 - name: Install The Silver Searcher
   apt: pkg=silversearcher-ag state=present
+  when: ansible_distribution_version|float > 12.10
 
 - name: Install standalone Ack
   get_url: url=http://beyondgrep.com/ack-2.12-single-file
