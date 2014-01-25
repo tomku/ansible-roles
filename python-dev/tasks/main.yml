@@ -3,16 +3,19 @@
   get_url: url=http://repo.continuum.io/miniconda/Miniconda-2.2.2-Linux-x86.sh
            dest=/tmp/Miniconda-Linux.sh
            owner=root group=root owner=0755
+  when: interactive_user != false
 
 - name: Install Anaconda
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: bash /tmp/Miniconda-Linux.sh -b -p /home/{{ interactive_user }}/.python creates=/home/{{ interactive_user }}/.python
+  when: interactive_user != false
 
 - name: Update Anaconda
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: /home/{{ interactive_user }}/.python/bin/conda update --yes -q conda
+  when: interactive_user != false
 
 - name: Add the PyPy PPA
   apt_repository: repo=ppa:pypy/ppa state=present

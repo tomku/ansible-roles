@@ -6,3 +6,4 @@
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: cabal update creates=/home/{{ interactive_user }}/.cabal/packages/hackage.haskell.org
+  when: interactive_user != false

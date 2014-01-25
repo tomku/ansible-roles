@@ -1,4 +1,6 @@
 ---
+interactive_user: false
+
 initialize_lein: true
 
 initialize_sbt: true
