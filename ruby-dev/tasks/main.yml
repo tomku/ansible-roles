@@ -7,11 +7,11 @@
 
 - name: Install ruby 1.8
   apt: pkg=ruby1.8-full
-  when: install_ruby1.8
+  when: '"1.8" in install_rubies'
 
 - name: Install ruby 1.9.3
   apt: pkg=ruby1.9.3
-  when: install_ruby1.9.1
+  when: '"1.9.1" in install_rubies'
 
 - name: Install Ruby 2.0
   apt: pkg={{ item }}
@@ -19,7 +19,7 @@
     - ruby2.0
     - ruby2.0-dev
     - ruby2.0-doc
-  when: install_ruby2.0
+  when: '"2.0" in install_rubies'
 
 - name: Install Ruby 2.1
   apt: pkg={{ item }}
@@ -27,13 +27,9 @@
     - ruby2.1
     - ruby2.1-dev
     - ruby2.1-doc
-  when: install_ruby2.1
+  when: '"2.1" in install_rubies'
 
 - name: Set the default Ruby
   command: ruby-switch --set ruby{{ item }}
-  with_items:
-    - "1.8"
-    - "1.9.1"
-    - "2.0"
-    - "2.1"
+  with_items: install_rubies
   when: item == default_ruby

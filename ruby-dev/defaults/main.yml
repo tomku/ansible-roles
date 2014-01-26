@@ -1,7 +1,6 @@
 ---
-install_ruby1.8: false
-install_ruby1.9.1: false
-install_ruby2.0: false
-install_ruby2.1: true
+# Available: "1.8", "1.9.1", "2.0", "2.1"
+install_rubies:
+  - "2.1"
 
-default_ruby: "2.1"
+default_ruby: "1.8"

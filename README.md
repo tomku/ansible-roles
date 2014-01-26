@@ -90,7 +90,7 @@ The 'cran_mirror' variable specifies which CRAN mirror to use.  The contents sho
 
 ### ruby-dev
 
-The variables 'install_ruby1.8', 'install_ruby1.9.1', 'install_ruby2.0' and 'install_ruby2.1' control which versions of Ruby are installed.  Unlike most of the rest of my roles, this role supports installing multiple versions of Ruby simultaneously.  The 'default_ruby' variable should contain a bare version number (like "1.9.1" or "2.1") to set as the default /usr/bin/ruby.
+The variable 'install_rubies' controls which versions of Ruby should be installed.  The value should be a list of bare version strings like "1.9.1" or "2.1".  The 'default_ruby' variable should contain a bare version number string to set as the default /usr/bin/ruby.
 
 As is normal for Debian/Ubuntu Ruby packages, ruby1.9.1 actually installs the newest release in the 1.9 series that is API-compatible with 1.9.1, which is currently 1.9.3.
 
