@@ -69,5 +69,15 @@
 - name: Add Groovy's bin directory to the system path
   template: src=groovy.sh.j2 dest=/etc/profile.d/groovy.sh
 
+- name: Download JRuby
+  get_url: url=http://jruby.org.s3.amazonaws.com/downloads/{{ jruby_version }}/jruby-bin-{{ jruby_version }}.tar.gz
+           dest=/tmp/jruby.tar.gz
+
+- name: Install JRuby
+  unarchive: src=/tmp/jruby.tar.gz dest=/opt/
+
+- name: Add JRuby's bin directory to the system path
+  template: src=jruby.sh.j2 dest=/etc/profile.d/jruby.sh
+
 # TODO: Split into individual tasks or roles
 #

@@ -80,7 +80,7 @@ The 'io_version' variable specifies the version of Io to look for in the package
 
 ### jvm-dev
 
-The variables 'sbt_version', 'maven_version', 'ant_version', 'gradle_version' and 'groovy_version' specify which version of each to install.
+The variables 'sbt_version', 'maven_version', 'ant_version', 'gradle_version', 'groovy_version' and 'jruby_version'  specify which version of each to install.
 
 The 'apache_mirror' variable specifies which Apache mirror to use.  The contents should be a URL from the [Apache mirror list](http://www.apache.org/mirrors/) with no project-specific component added on.  The Apache project also provides a [page](http://www.apache.org/dyn/closer.cgi) that suggests a close mirror.
 
@@ -109,7 +109,6 @@ The 'rust-version' variable specifies which version of Rust to install.
 * Split PHP into its own role.
 * Add options for nightly/beta/snapshot versions as appropriate.
 * Add options to change ports for servers.
-* Add JRuby.
 * Add MySQL/MariaDB.
 * Maybe add Neo4j, ElasticSearch.
 * Investigate writing custom modules to manage packages for cabal, opam, racket, julia, R.
