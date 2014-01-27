@@ -1,0 +1,4 @@
+---
+couchdb_version: "1.5.0"
+
+apache_mirror: "http://www.webhostingjams.com/mirror/apache/"
