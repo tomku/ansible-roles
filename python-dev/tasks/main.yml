@@ -1,9 +1,15 @@
 ---
-- name: Download Anaconda
-  get_url: url=http://repo.continuum.io/miniconda/Miniconda-2.2.2-Linux-x86.sh
+- name: Download Anaconda (32-bit)
+  get_url: url=http://repo.continuum.io/miniconda/Miniconda-3.0.0-Linux-x86.sh
            dest=/tmp/Miniconda-Linux.sh
            owner=root group=root owner=0755
-  when: interactive_user != false
+  when: ansible_architecture == "i386" and interactive_user != false
+
+- name: Download Anaconda (64-bit)
+  get_url: url=http://repo.continuum.io/miniconda/Miniconda-3.0.0-Linux-x86_64.sh
+           dest=/tmp/Miniconda-Linux.sh
+           owner=root group=root owner=0755
+  when: ansible_architecture == "x86_64" and interactive_user != false
 
 - name: Install Anaconda
   sudo: True
