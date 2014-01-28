@@ -100,6 +100,7 @@ The 'rust-version' variable specifies which version of Rust to install.
 
 ## Future Plans
 
+* Docker
 * Proper checks to see whether something is installed, to avoid unnecessary downloads to /tmp.
 * Split the JVM role up into individual roles for each tool.
 * Complete reworking of the 'python-dev' role.
@@ -109,6 +110,7 @@ The 'rust-version' variable specifies which version of Rust to install.
 * Split PHP into its own role.
 * Add options for nightly/beta/snapshot versions as appropriate.
 * Add options to change ports for servers.
+* Add build-from-source fallbacks when practical.
 * Add MySQL/MariaDB.
-* Maybe add Neo4j, ElasticSearch.
+* Maybe add Neo4j
 * Investigate writing custom modules to manage packages for cabal, opam, racket, julia, R.
