@@ -1,0 +1,7 @@
+---
+- name: Download Elasticsearch
+  get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.deb
+           dest=/tmp/elasticsearch.deb
+
+- name: Install Elasticsearch
+  command: dpkg -i /tmp/elasticsearch.deb creates=/usr/share/elasticsearch/bin/elasticsearch
