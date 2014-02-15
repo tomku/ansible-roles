@@ -100,7 +100,6 @@ The 'rust-version' variable specifies which version of Rust to install.
 
 ## Future Plans
 
-* Docker
 * Proper checks to see whether something is installed, to avoid unnecessary downloads to /tmp.
 * Split the JVM role up into individual roles for each tool.
 * Complete reworking of the 'python-dev' role.
