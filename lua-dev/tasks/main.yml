@@ -1,7 +1,7 @@
 ---
 - name: Install Lua
   apt: pkg={{ item }} state=present
-  with_items: 
+  with_items:
     - lua5.2
     - luajit
     - luarocks

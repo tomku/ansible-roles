@@ -13,7 +13,7 @@
 - name: Clone oh-my-zsh
   sudo: True
   sudo_user: "{{ interactive_user | mandatory }}"
-  git: repo=https://github.com/robbyrussell/oh-my-zsh 
+  git: repo=https://github.com/robbyrussell/oh-my-zsh
        dest=/home/{{ interactive_user | mandatory }}/.oh-my-zsh
 
 - name: Clone my dotfiles

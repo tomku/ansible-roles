@@ -12,9 +12,9 @@
 - name: Install the LLVM/Clang packages
   apt: pkg={{ item }} state=present
   with_items:
-    - clang-3.4 
-    - clang-3.4-doc 
-    - lldb-3.4 
+    - clang-3.4
+    - clang-3.4-doc
+    - lldb-3.4
     - llvm-3.4
     - llvm-3.4-doc
 

@@ -31,7 +31,7 @@
 
 - name: Install CouchDB
   command: make install chdir=/tmp/apache-couchdb-{{ couchdb_version }} creates=/usr/local/bin/couchdb
-  
+
 - name: Install CouchDB's scripts
   file: src=/usr/local/etc/{{ item }}/couchdb
         dest=/etc/{{ item }}/couchdb
