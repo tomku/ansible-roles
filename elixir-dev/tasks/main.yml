@@ -1,6 +1,7 @@
 ---
 - name: Download Elixir
-  get_url: url=https://github.com/elixir-lang/elixir/releases/download/v0.12.2/v0.12.2.zip dest=/tmp/elixir.zip
+  get_url: url=https://github.com/elixir-lang/elixir/releases/download/{{ elixir_version }}/Precompiled.zip
+       dest=/tmp/elixir.zip
 
 - name: Create Elixir's directory
   file: path=/opt/elixir state=directory
