@@ -1,11 +1,11 @@
 ---
 - name: Get the 32-bit Go tarball
-  get_url: url=https://go.googlecode.com/files/go{{ go_version }}.linux-386.tar.gz
+  get_url: url=https://storage.googleapis.com/golang/go{{ go_version }}.linux-386.tar.gz
            dest=/tmp/go.tar.gz
   when: ansible_architecture == "i386"
 
 - name: Get the 64-bit Go tarball
-  get_url: url=https://go.googlecode.com/files/go{{ go_version }}.linux-amd64.tar.gz
+  get_url: url=https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz
            dest=/tmp/go.tar.gz
   when: ansible_architecture == "x86_64"
 
