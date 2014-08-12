@@ -3,4 +3,4 @@
 install_rubies:
   - "2.1"
 
-default_ruby: "1.8"
+default_ruby: "2.1"
