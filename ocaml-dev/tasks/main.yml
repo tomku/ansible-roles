@@ -1,6 +1,7 @@
 ---
 - name: Add the OPAM PPA
   apt_repository: repo="ppa:avsm/ppa"
+  when: ansible_distribution_version|float <= 13.10
 
 - name: Install the OPAM and Ocaml packages
   apt: pkg={{ item }} state=present
