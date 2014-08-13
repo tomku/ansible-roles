@@ -11,7 +11,7 @@
 - name: Force-download leiningen's jars
   sudo: True
   sudo_user: "{{ interactive_user }}"
-  command: lein help creates=/home/{{ interactive_user }}/.lein"
+  command: lein help creates=/home/{{ interactive_user }}/.lein
   when: interactive_user and initialize_lein
 
 - name: Download the sbt package
