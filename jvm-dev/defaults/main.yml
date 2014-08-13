@@ -4,12 +4,12 @@ interactive_user: false
 initialize_lein: true
 
 initialize_sbt: true
-sbt_version: "0.13.1"
+sbt_version: "0.13.5"
 
-apache_mirror: "http://www.webhostingjams.com/mirror/apache/"
-maven_version: "3.1.1"
-ant_version: "1.9.3"
-gradle_version: "1.10"
-groovy_version: "2.2.1"
+apache_mirror: "http://www.carfab.com/apachesoftware"
+maven_version: "3.2.1"
+ant_version: "1.9.4"
+gradle_version: "2.0"
+groovy_version: "2.3.2"
 
-jruby_version: "1.7.10"
+jruby_version: "1.7.12"
