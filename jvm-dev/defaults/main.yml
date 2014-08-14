@@ -7,9 +7,9 @@ initialize_sbt: true
 sbt_version: "0.13.5"
 
 apache_mirror: "http://www.carfab.com/apachesoftware"
-maven_version: "3.2.1"
+maven_version: "3.2.2"
 ant_version: "1.9.4"
 gradle_version: "2.0"
-groovy_version: "2.3.2"
+groovy_version: "2.3.6"
 
-jruby_version: "1.7.12"
+jruby_version: "1.7.13"
