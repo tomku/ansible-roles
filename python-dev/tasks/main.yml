@@ -11,17 +11,29 @@
            owner=root group=root mode=0755
   when: ansible_architecture == "x86_64" and interactive_user != false
 
-- name: Install Anaconda
+- name: Install Conda
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: bash /tmp/Miniconda-Linux.sh -b -p /home/{{ interactive_user }}/.python creates=/home/{{ interactive_user }}/.python
   when: interactive_user != false
 
-- name: Update Anaconda
+- name: Install full Anaconda
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: /home/{{ interactive_user }}/.python/bin/conda install --yes -q anaconda
+  when: interactive_user != false and full_anaconda
+
+- name: Update Conda
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: /home/{{ interactive_user }}/.python/bin/conda update --yes -q conda
-  when: interactive_user != false
+  when: interactive_user != false and full_anaconda == false
+
+- name: Uninstall Anaconda's cURL.
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: /home/{{ interactive_user }}/.python/bin/conda remove --yes -q curl
+  when: interactive_user != false and full_anaconda
 
 - name: Add the PyPy PPA
   apt_repository: repo=ppa:pypy/ppa state=present
@@ -29,6 +41,5 @@
 - name: Install the PyPy package
   apt: pkg=pypy state=present
 
-# TODO: Install pip by default
-# TODO: Install IPython and configure to serve notebooks out of /vagrant
+# TODO: Configure IPython to serve notebooks out of /vagrant
 
