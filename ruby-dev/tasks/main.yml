@@ -4,6 +4,7 @@
 
 - name: Install ruby-switch
   apt: pkg=ruby-switch state=present
+  when: ansible_distribution_version|float <= 13.10
 
 - name: Install ruby 1.8
   apt: pkg=ruby1.8-full
@@ -32,4 +33,4 @@
 - name: Set the default Ruby
   command: ruby-switch --set ruby{{ item }}
   with_items: install_rubies
-  when: item == default_ruby
+  when: item == default_ruby and ansible_distribution_version|float <= 13.10
