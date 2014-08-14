@@ -2,6 +2,10 @@
 - name: Clean up the APT cache
   command: apt-get clean
 
+- name: Clean out /tmp
+  shell: rm -f /tmp/*.zip /tmp/*.deb /tmp/*.gz /tmp/*.bz2 /tmp/*.lisp /tmp/*.sh
+  ignore_errors: yes
+
 - name: Zero out the disk
   shell: dd if=/dev/zero of=/EMPTY bs=1M; rm -f /EMPTY
   ignore_errors: yes
