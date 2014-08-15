@@ -14,4 +14,4 @@
 
 - name: Ensure logrotate is uninstalled
   apt: pkg=logrotate state=absent
-  when: ansible_distribution_release != "precise"
+  when: ansible_distribution_release != "precise" and ansible_distribution_release != "trusty"
