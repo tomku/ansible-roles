@@ -6,6 +6,12 @@
   shell: rm -f /tmp/*.zip /tmp/*.deb /tmp/*.gz /tmp/*.bz2 /tmp/*.lisp /tmp/*.sh
   ignore_errors: yes
 
+- name: Clean out the Oracle Java installer's cache
+  file: path=/var/cache/oracle-jdk{{ item }}-installer state=absent
+  with_items:
+    - 7
+    - 8
+
 - name: Zero out the disk
   shell: dd if=/dev/zero of=/EMPTY bs=1M; rm -f /EMPTY
   ignore_errors: yes

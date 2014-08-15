@@ -1,0 +1,12 @@
+
+---
+- name: Download Groovy
+  get_url: url=http://dl.bintray.com/groovy/maven/groovy-binary-{{ groovy_version }}.zip
+           dest=/tmp/groovy-{{ groovy_version }}.zip
+
+- name: Install Groovy
+  unarchive: src=/tmp/groovy-{{ groovy_version }}.zip dest=/opt/
+
+- name: Add Groovy's bin directory to the system path
+  template: src=groovy.sh.j2 dest=/etc/profile.d/groovy.sh
+

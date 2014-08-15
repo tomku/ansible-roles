@@ -1,0 +1,15 @@
+
+---
+- name: Add the WebUpd8 Java PPA
+  apt_repository: repo=ppa:webupd8team/java state=present
+
+- name: Accept the Oracle Java license
+  shell: echo oracle-java{{ jdk_version }}-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+  when: accepted_oracle_license
+
+- name: Install the Oracle Java Installer package
+  apt: pkg={{ item }} state=present
+  with_items:
+    - oracle-java{{ jdk_version }}-installer
+    - oracle-java{{ jdk_version }}-set-default
+

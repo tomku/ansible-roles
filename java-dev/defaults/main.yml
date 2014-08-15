@@ -1,0 +1,6 @@
+
+---
+apache_mirror: "http://www.carfab.com/apachesoftware"
+maven_version: "3.2.2"
+ant_version: "1.9.4"
+gradle_version: "2.0"

@@ -1,0 +1,33 @@
+
+---
+- name: Download Maven
+  get_url: url={{ apache_mirror }}/maven/maven-{{ maven_version[0] }}/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
+      dest=/tmp/maven-{{ maven_version }}.tar.gz
+  when: maven_version[0] == "3"
+
+- name: Install Maven
+  unarchive: src=/tmp/maven-{{ maven_version }}.tar.gz dest=/opt/
+
+- name: Add Maven's bin directory to the system path
+  template: src=maven.sh.j2 dest=/etc/profile.d/maven.sh
+
+- name: Download Ant
+  get_url: url={{ apache_mirror }}/ant/binaries/apache-ant-{{ ant_version }}-bin.tar.bz2
+           dest=/tmp/ant-{{ ant_version }}.tar.bz2
+
+- name: Install Ant
+  unarchive: src=/tmp/ant-{{ ant_version }}.tar.bz2 dest=/opt/
+
+- name: Add Ant's bin directory to the system path
+  template: src=ant.sh.j2 dest=/etc/profile.d/ant.sh
+
+- name: Download Gradle
+  get_url: url=http://services.gradle.org/distributions/gradle-{{ gradle_version }}-all.zip
+           dest=/tmp/gradle-{{ gradle_version }}.zip
+
+- name: Install Gradle
+  unarchive: src=/tmp/gradle-{{ gradle_version }}.zip dest=/opt/
+
+- name: Add Gradle's bin directory to the system path
+  template: src=gradle.sh.j2 dest=/etc/profile.d/gradle.sh
+
