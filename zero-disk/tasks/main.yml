@@ -12,6 +12,9 @@
     - 7
     - 8
 
+- name: Delete the VirtualBox additions ISO
+  file: path=/home/vagrant/VBoxGuestAdditions.iso state=absent
+
 - name: Zero out the disk
   shell: dd if=/dev/zero of=/EMPTY bs=1M; rm -f /EMPTY
   ignore_errors: yes
