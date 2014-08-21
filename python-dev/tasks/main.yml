@@ -35,6 +35,10 @@
   command: /home/{{ interactive_user }}/.python/bin/conda remove --yes -q curl
   when: interactive_user != false and full_anaconda
 
+- name: Install pythonpy
+  pip: name=pythonpy executable=/home/{{ interactive_user }}/.python/bin/pip state=present
+  when: interactive_user != false
+
 - name: Add the PyPy PPA
   apt_repository: repo=ppa:pypy/ppa state=present
 
