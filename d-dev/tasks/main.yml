@@ -1,0 +1,20 @@
+---
+- name: Check if Digital Mars D is installed.
+  shell: dmd | grep "D Compiler v{{ dmd_version | regex_replace('-\d+', '') }}"
+  register: dmd_installed
+  ignore_errors: true
+
+- name: Download the 32-bit Digital Mars D compiler.
+  get_url: url=http://downloads.dlang.org/releases/{{ dmd_year }}/dmd_{{ dmd_version }}_i386.deb dest=/tmp/dmd_{{ dmd_version }}.deb
+  when: dmd_installed|failed and ansible_architecture == "i386"
+
+- name: Download the 64-bit Digital Mars D compiler.
+  get_url: url=http://downloads.dlang.org/releases/{{ dmd_year }}/dmd_{{ dmd_version }}_amd64.deb dest=/tmp/dmd_{{ dmd_version }}.deb
+  when: dmd_installed|failed and ansible_architecture == "x86_64"
+
+- name: Install Digital Mars D compiler.
+  apt: deb=/tmp/dmd_{{ dmd_version }}.deb
+  when: dmd_installed|failed
+
+- name: Clean up the Digital Mars D package.
+  file: path=/tmp/dmd_{{ dmd_version }}.deb state=absent
