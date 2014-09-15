@@ -1,4 +1,0 @@
----
-- name: Add an alias to re-provision the Vagrant box
-  copy: src=ansible-reload.sh
-        dest=/etc/profile.d/ansible-reload.sh
