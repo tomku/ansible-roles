@@ -5,10 +5,6 @@
            dest=/usr/local/bin/lein
            owner=root group=root mode=0755
 
-- name: Temporarily downgrade leiningen
-  replace: dest=/usr/local/bin/lein regexp='LEIN_VERSION="2.4.3"' replace='LEIN_VERSION="2.4.2"'
-  ignore_errors: true
-
 - name: Force-download leiningen's jars
   sudo: True
   sudo_user: "{{ interactive_user }}"
