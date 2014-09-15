@@ -3,5 +3,5 @@
 interactive_user: false
 
 initialize_sbt: true
-sbt_version: "0.13.5"
+sbt_version: "0.13.6"
 
