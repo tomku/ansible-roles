@@ -1,6 +1,6 @@
 ---
 - name: Check if Digital Mars D is installed.
-  shell: dmd | grep "D Compiler v{{ dmd_version | regex_replace('-\d+', '') }}"
+  shell: dmd | grep "D Compiler v{{ dmd_version | regex_replace('-\d+', '') }}$"
   register: dmd_installed
   ignore_errors: true
 
