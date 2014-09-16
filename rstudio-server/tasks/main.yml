@@ -4,6 +4,12 @@
   register: rstudio_installed
   ignore_errors: true
 
+- name: Install RStudio's prerequisites.
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - libapparmor1
+    - libcurl4-gnutls-dev
+
 - name: Download 32-bit RStudio.
   get_url: url=http://download2.rstudio.org/rstudio-server-{{ rstudio_version }}-i386.deb
            dest=/tmp/rstudio-{{ rstudio_version }}.deb
@@ -16,7 +22,7 @@
 
 - name: Install RStudio.
   apt: deb=/tmp/rstudio-{{ rstudio_version }}.deb
-  when: rstudio_installed|failed 
+  when: rstudio_installed|failed
 
 - name: Clean up the RStudio package.
   file: path=/tmp/rstudio-{{ rstudio_version }}.deb state=absent
