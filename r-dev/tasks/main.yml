@@ -7,5 +7,3 @@
 
 - name: Install R's packages
   apt: pkg=r-recommended state=present
-
-# TODO: Install RStudio and configure it to run out of /vagrant
