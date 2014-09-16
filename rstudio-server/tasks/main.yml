@@ -20,3 +20,15 @@
 
 - name: Clean up the RStudio package.
   file: path=/tmp/rstudio-{{ rstudio_version }}.deb state=absent
+
+- name: Create the RStudio configuration directory.
+  file: path=/home/{{ interactive_user }}/.rstudio/monitored/user-settings state=directory
+        owner={{ interactive_user}} group={{ interactive_user }} mode=0775
+  when: interactive_user == "vagrant"
+
+- name: Set up RStudio to serve from /vagrant.
+  lineinfile: dest=/home/{{ interactive_user }}/.rstudio/monitored/user-settings/user-settings
+              create=yes state=present regexp="^initialWorkingDirectory="
+              owner={{ interactive_user}} group={{ interactive_user }}
+              line="initialWorkingDirectory=/vagrant"
+  when: interactive_user == "vagrant"
