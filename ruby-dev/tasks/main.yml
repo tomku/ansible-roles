@@ -2,35 +2,26 @@
 - name: Install the Brightbox PPA
   apt_repository: repo=ppa:brightbox/ruby-ng
 
-- name: Install ruby-switch
-  apt: pkg=ruby-switch state=present
-  when: ansible_distribution_version|float <= 13.10
-
 - name: Install ruby 1.8
-  apt: pkg=ruby1.8-full
-  when: '"1.8" in install_rubies'
+  apt: name=ruby1.8-full
+  when: ruby_version == "1.8"
 
 - name: Install ruby 1.9.3
-  apt: pkg=ruby1.9.3
-  when: '"1.9.1" in install_rubies'
+  apt: name=ruby1.9.3
+  when: ruby_version == "1.9.1"
 
 - name: Install Ruby 2.0
-  apt: pkg={{ item }}
+  apt: name={{ item }}
   with_items:
     - ruby2.0
     - ruby2.0-dev
     - ruby2.0-doc
-  when: '"2.0" in install_rubies'
+  when: ruby_version == "2.0"
 
 - name: Install Ruby 2.1
-  apt: pkg={{ item }}
+  apt: name={{ item }}
   with_items:
     - ruby2.1
     - ruby2.1-dev
     - ruby2.1-doc
-  when: '"2.1" in install_rubies'
-
-- name: Set the default Ruby
-  command: ruby-switch --set ruby{{ item }}
-  with_items: install_rubies
-  when: item == default_ruby and ansible_distribution_version|float <= 13.10
+  when: ruby_version == "2.1"

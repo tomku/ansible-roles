@@ -141,11 +141,9 @@ The 'rstudio_version' variable specifies which version of RStudio to install.
 
 ### ruby-dev
 
-The variable 'install_rubies' controls which versions of Ruby should be installed.  The value should be a list of bare version strings like "1.9.1" or "2.1".  The 'default_ruby' variable should contain a bare version number string to set as the default /usr/bin/ruby.
+The 'ruby_version' variable controls which version of Ruby should be installed.  The value should be a bare version string like "1.9.1" or "2.1".
 
 As is normal for Debian/Ubuntu Ruby packages, ruby1.9.1 actually installs the newest release in the 1.9 series that is API-compatible with 1.9.1, which is currently 1.9.3.
-
-Installing multiple rubies via system packages actually isn't supported any more, so this role will be switching to a single version install in the near future.  It currently only attempts to set the default Ruby on Ubuntu 12.04, because ruby-switch packages aren't available on 14.04.
 
 ### rust-dev
 
