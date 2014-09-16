@@ -1,13 +1,13 @@
 
 ---
-- name: Install leiningen
+- name: Install leiningen.
   get_url: url=https://raw.github.com/technomancy/leiningen/stable/bin/lein
            dest=/usr/local/bin/lein
            owner=root group=root mode=0755
 
-- name: Force-download leiningen's jars
+- name: Force-download leiningen's jars.
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: lein help creates=/home/{{ interactive_user }}/.lein
-  when: interactive_user and initialize_lein
+  when: interactive_user is defined and initialize_lein
 
