@@ -75,9 +75,11 @@ When the interactive user is 'vagrant', this role configures RStudio Server to d
 
 ### couchdb-server
 
-The 'couchdb_version' variable specifies which version of CouchDB to install.
+The 'couchdb_source_install' boolean variable controls whether CouchDB is installed via a PPA or from a source tarball.  The default is to use the PPA.
 
-The 'apache_mirror' variable specifies which Apache mirror to use.  The contents should be a URL from the [Apache mirror list](http://www.apache.org/mirrors/) with no project-specific component added on.  The Apache project also provides a [page](http://www.apache.org/dyn/closer.cgi) that suggests a close mirror.
+The 'couchdb_version' variable specifies which version of CouchDB to install, when installing from source.
+
+The 'apache_mirror' variable specifies which Apache mirror to use to download the CouchDB source tarball.  The contents should be a URL from the [Apache mirror list](http://www.apache.org/mirrors/) with no project-specific component added on.  The Apache project also provides a [page](http://www.apache.org/dyn/closer.cgi) that suggests a close mirror.
 
 ### d-dev
 

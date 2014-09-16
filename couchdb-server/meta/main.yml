@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: erlang-dev, erlang_use_hipe: true }

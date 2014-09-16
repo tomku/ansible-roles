@@ -9,14 +9,18 @@
   apt: pkg={{ item }} state=present
   with_items:
     - erlang-base-hipe
-    - erlang
+    - erlang-nox
+    - erlang-manpages
+    - erlang-dev
   when: erlang_use_hipe
 
 - name: Install the Erlang Solutions erlang packages (without hipe)
   apt: pkg={{ item }} state=present
   with_items:
     - erlang-base
-    - erlang
+    - erlang-nox
+    - erlang-manpages
+    - erlang-dev
   when: not erlang_use_hipe
 
 - name: Install rebar

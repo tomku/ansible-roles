@@ -1,4 +1,4 @@
 ---
-couchdb_version: "1.6.0"
+couchdb_version: "1.6.1"
 
 apache_mirror: "http://www.carfab.com/apachesoftware"

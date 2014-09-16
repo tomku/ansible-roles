@@ -1,56 +1,14 @@
 ---
-- name: Install prerequisitives for CouchDB
-  apt: pkg={{ item }}
-  with_items:
-    - erlang-dev
-    - erlang-manpages
-    - erlang-base-hipe
-    - erlang-eunit
-    - erlang-nox
-    - erlang-xmerl
-    - erlang-inets
-    - g++
-    - libmozjs185-dev
-    - libicu-dev
-    - libcurl4-gnutls-dev
-    - libtool
+- name: Check whether CouchDB is installed.
+  shell: couchdb -V | grep "couchdb - Apache CouchDB {{ couchdb_version }}"
+  register: couchdb_installed
+  ignore_errors: true
 
-- name: Download CouchDB
-  get_url: url={{ apache_mirror }}/couchdb/source/{{ couchdb_version }}/apache-couchdb-{{ couchdb_version }}.tar.gz
-           dest=/tmp/couchdb.tar.gz
+- include: build_couchdb.yml
+  when: couchdb_installed|failed and couchdb_source_install
 
-- name: Unpack CouchDB
-  unarchive: src=/tmp/couchdb.tar.gz
-             dest=/tmp/
+- include: couchdb_ppa.yml
+  when: couchdb_installed|failed and not couchdb_source_install
 
-- name: Configure CouchDB
-  command: ./configure chdir=/tmp/apache-couchdb-{{ couchdb_version }} creates=/tmp/apache-couchdb-{{ couchdb_version }}/Makefile
-
-- name: Build CouchDB
-  command: make chdir=/tmp/apache-couchdb-{{ couchdb_version }} creates=/tmp/apache-couchdb-{{ couchdb_version }}/bin/couchdb
-
-- name: Install CouchDB
-  command: make install chdir=/tmp/apache-couchdb-{{ couchdb_version }} creates=/usr/local/bin/couchdb
-
-- name: Install CouchDB's scripts
-  file: src=/usr/local/etc/{{ item }}/couchdb
-        dest=/etc/{{ item }}/couchdb
-        state=link
-  with_items:
-    - logrotate.d
-    - init.d
-
-- name: Add the 'couchdb' user
-  user: name=couchdb home=/usr/local/var/lib/couchdb shell=/bin/sh
-        system=yes state=present
-
-- name: Ensure that CouchDB has permissions on its directories
-  file: path=/usr/local/var/{{ item }}/couchdb state=directory
-        recurse=yes owner=couchdb group=couchdb
-  with_items:
-    - log
-    - lib
-    - run
-
-- name: Enable and start CouchDB
+- name: Enable and start CouchDB.
   service: name=couchdb state=started enabled=yes
