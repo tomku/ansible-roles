@@ -1,12 +1,21 @@
 
 ---
+- name: Check if Groovy is installed
+  shell: stat /opt/groovy-{{ groovy_version }}/bin/groovy
+  register: groovy_installed
+  ignore_errors: true
+
 - name: Download Groovy
   get_url: url=http://dl.bintray.com/groovy/maven/groovy-binary-{{ groovy_version }}.zip
            dest=/tmp/groovy-{{ groovy_version }}.zip
+  when: groovy_installed|failed
 
 - name: Install Groovy
   unarchive: src=/tmp/groovy-{{ groovy_version }}.zip dest=/opt/
+  when: groovy_installed|failed
 
 - name: Add Groovy's bin directory to the system path
   template: src=groovy.sh.j2 dest=/etc/profile.d/groovy.sh
 
+- name: Clean up the Groovy archive
+  file: path=/opt/groovy-{{ groovy_version }}.zip state=absent
