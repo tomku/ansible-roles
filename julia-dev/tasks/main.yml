@@ -3,7 +3,7 @@
   apt_repository: repo=ppa:staticfloat/juliareleases state=present
 
 - name: Install the Julia packages
-  apt: pkg=julia state=present
+  apt: name=julia state=latest
 
 # TODO: Add an option for nightlies
 # TODO: IJulia
