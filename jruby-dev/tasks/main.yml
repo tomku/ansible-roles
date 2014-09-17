@@ -1,11 +1,20 @@
-
 ---
+- name: Check if JRuby is installed
+  command: stat /opt/jruby-{{ jruby_version }}/bin/jruby
+  register: jruby_installed
+  ignore_errors: true
+
 - name: Download JRuby
   get_url: url=http://jruby.org.s3.amazonaws.com/downloads/{{ jruby_version }}/jruby-bin-{{ jruby_version }}.tar.gz
            dest=/tmp/jruby-{{ jruby_version }}.tar.gz
+  when: jruby_installed|failed
 
 - name: Install JRuby
   unarchive: src=/tmp/jruby-{{ jruby_version }}.tar.gz dest=/opt/
+  when: jruby_installed|failed
+
+- name: Clean up JRuby's archive
+  file: path=/tmp/jruby-{{ jruby_version }}.tar.gz state=absent
 
 - name: Add JRuby's bin directory to the system path
   template: src=jruby.sh.j2 dest=/etc/profile.d/jruby.sh
