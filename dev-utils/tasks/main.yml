@@ -1,11 +1,11 @@
 ---
-- name: Update apt's cache.
+- name: Update apt's cache
   apt: update-cache=yes cache_valid_time=0
 
-- name: Update all existing packages.
+- name: Update all existing packages
   apt: upgrade=dist
 
-- name: Install useful packages.
+- name: Install useful packages
   apt: pkg={{ item }} state=present
   with_items:
     - tmux
@@ -32,19 +32,19 @@
     - gdb
     - valgrind
 
-- name: Install ZMQ2.
+- name: Install ZMQ2
   apt: pkg=libzmq-dev state=present
   when: ansible_distribution_version|version_compare('13.10', '<')
 
-- name: Install ZMQ3.
+- name: Install ZMQ3
   apt: pkg=libzmq3-dev state=present
   when: ansible_distribution_version|version_compare('13.10', '>=')
 
-- name: Add the Silver Searcher PPA.
+- name: Add the Silver Searcher PPA
   apt_repository: repo="ppa:mizuno-as/silversearcher-ag" state=present
   when: ansible_distribution_version|version_compare('14.04', '==')
 
-- name: Install The Silver Searcher.
+- name: Install The Silver Searcher
   apt: pkg=silversearcher-ag state=present
   when: ansible_distribution_version|version_compare('14.04', '==')
 

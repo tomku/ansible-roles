@@ -1,5 +1,5 @@
 ---
-- name: Check whether CouchDB is installed.
+- name: Check whether CouchDB is installed
   shell: couchdb -V | grep "couchdb - Apache CouchDB {{ couchdb_version }}"
   register: couchdb_installed
   ignore_errors: true
@@ -10,5 +10,5 @@
 - include: couchdb_ppa.yml
   when: couchdb_installed|failed and not couchdb_source_install
 
-- name: Enable and start CouchDB.
+- name: Enable and start CouchDB
   service: name=couchdb state=started enabled=yes

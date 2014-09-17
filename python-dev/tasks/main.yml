@@ -29,7 +29,7 @@
   command: /home/{{ interactive_user }}/.python/bin/conda update --yes -q conda
   when: interactive_user != false and full_anaconda == false
 
-- name: Uninstall Anaconda's cURL.
+- name: Uninstall Anaconda's cURL
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: /home/{{ interactive_user }}/.python/bin/conda remove --yes -q curl

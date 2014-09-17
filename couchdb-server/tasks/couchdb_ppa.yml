@@ -1,6 +1,6 @@
 ---
-- name: Add the CouchDB PPA.
+- name: Add the CouchDB PPA
   apt_repository: repo="ppa:couchdb/stable" state=present
 
-- name: Install the CouchDB package.
+- name: Install the CouchDB package
   apt: name=couchdb state=present

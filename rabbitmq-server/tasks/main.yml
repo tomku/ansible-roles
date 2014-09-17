@@ -1,39 +1,39 @@
 
 ---
-- name: Check if RabbitMQ is installed.
+- name: Check if RabbitMQ is installed
   command: which rabbitmqctl
   register: rabbitmq_installed
   ignore_errors: true
   when: rabbitmq_version is not defined
 
-- name: Check if a specific version of RabbitMQ is installed.
+- name: Check if a specific version of RabbitMQ is installed
   shell: rabbitmqctl status | grep "{rabbit,\"RabbitMQ\",\"{{ rabbitmq_version }}\"}"
   register: rabbitmq_installed_specific
   ignore_errors: true
   when: rabbitmq_version is defined
 
-- name: Add the RabbitMQ APT key.
+- name: Add the RabbitMQ APT key
   apt_key: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
   when: rabbitmq_installed|failed or rabbitmq_installed_specific|failed
 
-- name: Add the RabbitMQ APT repository.
+- name: Add the RabbitMQ APT repository
   apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
   when: rabbitmq_installed|failed
 
-- name: Install the RabbitMQ package.
+- name: Install the RabbitMQ package
   apt: name=rabbitmq-server state=present
   when: rabbitmq_installed|failed
 
-- name: Download a specific version of the RabbitMQ package.
+- name: Download a specific version of the RabbitMQ package
   get_url: url=http://www.rabbitmq.com/releases/rabbitmq-server/v{{ rabbitmq_version }}/rabbitmq-server_{{ rabbitmq_version }}-1_all.deb
            dest=/tmp/rabbitmq-server_{{ rabbitmq_version }}-1_all.deb
            owner=root group=root mode=0644
   when: rabbitmq_installed_specific|failed
 
-- name: Install a specific version of the RabbitMQ package.
+- name: Install a specific version of the RabbitMQ package
   apt: deb=/tmp/rabbitmq-server_{{ rabbitmq_version }}-1_all.deb
   when: rabbitmq_installed_specific|failed
 
-- name: Clean up the RabbitMQ package.
+- name: Clean up the RabbitMQ package
   file: path=/tmp/rabbitmq-server_{{ rabbitmq_version }}-1_all.deb state=absent
   when: rabbitmq_version is defined

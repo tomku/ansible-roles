@@ -1,25 +1,25 @@
 
 ---
-- name: Check if sbt is installed.
+- name: Check if sbt is installed
   shell: sbt --version | grep "sbt launcher version {{ sbt_version }}$"
   register: sbt_installed
   ignore_errors: true
 
-- name: Download the sbt package.
+- name: Download the sbt package
   get_url: url=http://dl.bintray.com/sbt/debian/sbt-{{ sbt_version }}.deb
            dest=/tmp/sbt-{{ sbt_version }}.deb
            owner=root group=root mode=0644
   when: sbt_installed|failed
 
-- name: Install sbt.
+- name: Install sbt
   apt: deb=/tmp/sbt-{{ sbt_version }}.deb
   when: sbt_installed|failed
 
-- name: Force-download sbt's jars.
+- name: Force-download sbt's jars
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: sbt help creates=/home/{{ interactive_user }}/.sbt
   when: interactive_user and initialize_sbt and sbt_installed|failed
 
-- name: Clean up the sbt package.
+- name: Clean up the sbt package
   file: path=/tmp/sbt-{{ sbt_version }}.deb state=absent
