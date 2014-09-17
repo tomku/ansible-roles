@@ -1,0 +1,10 @@
+---
+- name: Download Ant
+  get_url: url={{ apache_mirror }}/ant/binaries/apache-ant-{{ ant_version }}-bin.tar.bz2
+           dest=/tmp/ant-{{ ant_version }}.tar.bz2
+
+- name: Install Ant
+  unarchive: src=/tmp/ant-{{ ant_version }}.tar.bz2 dest=/opt/
+
+- name: Clean up Ant's archive
+  file: path=/tmp/ant-{{ ant_version }}.tar.bz2 state=absent

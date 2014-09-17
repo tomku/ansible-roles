@@ -1,0 +1,10 @@
+---
+- name: Download Gradle
+  get_url: url=http://services.gradle.org/distributions/gradle-{{ gradle_version }}-all.zip
+           dest=/tmp/gradle-{{ gradle_version }}.zip
+
+- name: Install Gradle
+  unarchive: src=/tmp/gradle-{{ gradle_version }}.zip dest=/opt/
+
+- name: Clean up Gradle's archive
+  file: path=/tmp/gradle-{{ gradle_version }}.zip state=absent

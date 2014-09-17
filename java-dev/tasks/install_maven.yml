@@ -1,0 +1,10 @@
+---
+- name: Download Maven
+  get_url: url={{ apache_mirror }}/maven/maven-{{ maven_version[0] }}/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
+      dest=/tmp/maven-{{ maven_version }}.tar.gz
+
+- name: Install Maven
+  unarchive: src=/tmp/maven-{{ maven_version }}.tar.gz dest=/opt/
+
+- name: Clean up Maven's archive
+  file: path=/tmp/maven-{{ maven_version }}.tar.gz state=absent
