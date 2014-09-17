@@ -18,4 +18,4 @@
   template: src=groovy.sh.j2 dest=/etc/profile.d/groovy.sh
 
 - name: Clean up the Groovy archive
-  file: path=/opt/groovy-{{ groovy_version }}.zip state=absent
+  file: path=/tmp/groovy-{{ groovy_version }}.zip state=absent
