@@ -1,7 +1,20 @@
 ---
+- name: Check if Elasticsearch is installed
+  shell: curl http://localhost:9200 2>/dev/null | grep '"number"\s:\s"{{ elasticsearch_version }}"'
+  register: elasticsearch_installed
+  ignore_errors: true
+
 - name: Download Elasticsearch
   get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.deb
-           dest=/tmp/elasticsearch.deb
+           dest=/tmp/elasticsearch-{{ elasticsearch_version }}.deb
+  when: elasticsearch_installed|failed
 
 - name: Install Elasticsearch
-  command: dpkg -i /tmp/elasticsearch.deb creates=/usr/share/elasticsearch/bin/elasticsearch
+  apt: deb=/tmp/elasticsearch-{{ elasticsearch_version }}.deb
+  when: elasticsearch_installed|failed
+
+- name: Clean up the Elasticsearch package
+  file: path=/tmp/elasticsearch-{{ elasticsearch_version }}.deb state=absent
+
+- name: Enable and start the Elasticsearch service
+  service: name=elasticsearch enabled=yes state=started
