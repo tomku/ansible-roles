@@ -32,23 +32,23 @@
     - gdb
     - valgrind
 
-- name: Install ZMQ2
+- name: Install ZMQ2.
   apt: pkg=libzmq-dev state=present
-  when: ansible_distribution_version|float < 13.10
+  when: ansible_distribution_version|version_compare('13.10', '<')
 
-- name: Install ZMQ3
+- name: Install ZMQ3.
   apt: pkg=libzmq3-dev state=present
-  when: ansible_distribution_version|float >= 13.10
+  when: ansible_distribution_version|version_compare('13.10', '>=')
 
-- name: Add the Silver Searcher PPA
+- name: Add the Silver Searcher PPA.
   apt_repository: repo="ppa:mizuno-as/silversearcher-ag" state=present
-  when: ansible_distribution_version|float > 12.10
+  when: ansible_distribution_version|version_compare('14.04', '==')
 
-- name: Install The Silver Searcher
+- name: Install The Silver Searcher.
   apt: pkg=silversearcher-ag state=present
-  when: ansible_distribution_version|float > 12.10
+  when: ansible_distribution_version|version_compare('14.04', '==')
 
 - name: Install standalone Ack
-  get_url: url=http://beyondgrep.com/ack-2.12-single-file
+  get_url: url=http://beyondgrep.com/ack-2.14-single-file
            dest=/usr/local/bin/ack
            owner=root group=root mode=0755
