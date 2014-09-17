@@ -1,18 +1,20 @@
 ---
 - name: Install SBCL
-  apt: pkg=sbcl state=present
+  apt: name=sbcl state=latest
 
 - name: Download Quicklisp
   get_url: url=http://beta.quicklisp.org/quicklisp.lisp
            dest=/tmp/quicklisp.lisp
-  when: interactive_user != false
+  when: interactive_user is defined
 
 - name: Install Quicklisp
   sudo: True
   sudo_user: "{{ interactive_user }}"
   script: ql-install.sh
-  when: interactive_user != false
+  when: interactive_user is defined
 
 - name: Add Quicklisp to SBCL's config file
   copy: src=sbclrc dest=/home/{{ interactive_user }}/.sbclrc
-  when: interactive_user != false
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  when: interactive_user is defined
