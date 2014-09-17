@@ -1,13 +1,23 @@
 ---
+- name: Check if Elixir is installed
+  shell: /opt/elixir/bin/elixir --version | grep "Elixir {{ elixir_version }}"
+  register: elixir_installed
+  ignore_errors: true
+
 - name: Download Elixir
-  get_url: url=https://github.com/elixir-lang/elixir/releases/download/{{ elixir_version }}/Precompiled.zip
-       dest=/tmp/elixir.zip
+  get_url: url=https://github.com/elixir-lang/elixir/releases/download/v{{ elixir_version }}/Precompiled.zip
+           dest=/tmp/elixir-{{ elixir_version }}.zip
+  when: elixir_installed|failed
 
 - name: Create Elixir's directory
   file: path=/opt/elixir state=directory
 
 - name: Unzip Elixir
-  unarchive: src=/tmp/elixir.zip dest=/opt/elixir
+  unarchive: src=/tmp/elixir-{{ elixir_version }}.zip dest=/opt/elixir
+  when: elixir_installed|failed
 
 - name: Add Elixir to the system path
   copy: src=elixir.sh dest=/etc/profile.d/elixir.sh
+
+- name: Clean up the Elixir archive
+  file: path=/tmp/elixir-{{ elixir_version }}.zip state=absent
