@@ -1,20 +1,33 @@
 ---
+- name: Check if Go is installed
+  shell: /usr/local/go/bin/go version | grep "go version go{{ go_version|mandatory }} "
+  register: go_installed
+  ignore_errors: true
+
 - name: Get the 32-bit Go tarball
   get_url: url=https://storage.googleapis.com/golang/go{{ go_version }}.linux-386.tar.gz
-           dest=/tmp/go.tar.gz
-  when: ansible_architecture == "i386"
+           dest=/tmp/go-{{ go_version }}.tar.gz
+  when: ansible_architecture == "i386" and go_installed|failed
 
 - name: Get the 64-bit Go tarball
   get_url: url=https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz
-           dest=/tmp/go.tar.gz
-  when: ansible_architecture == "x86_64"
+           dest=/tmp/go-{{ go_version }}.tar.gz
+  when: ansible_architecture == "x86_64" and go_installed|failed
+
+- name: Remove any existing Go installation
+  file: path=/usr/local/go state=absent
+  when: go_installed|failed
 
 - name: Unpack the Go tarball
-  unarchive: src=/tmp/go.tar.gz dest=/usr/local
+  unarchive: src=/tmp/go-{{ go_version }}.tar.gz dest=/usr/local
+  when: go_installed|failed
 
 - name: Add the Go bin folder to PATH
   copy: src=gopath.sh
         dest=/etc/profile.d/gopath.sh
         owner=root group=root mode=644
+
+- name: Clean up the Go tarball
+  file: path=/tmp/go-{{ go_version }}.tar.gz state=absent
 
 # TODO: Figure out if I should be setting $GOPATH, possibly to /vagrant
