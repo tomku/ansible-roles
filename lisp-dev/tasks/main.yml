@@ -18,3 +18,7 @@
   sudo: True
   sudo_user: "{{ interactive_user }}"
   when: interactive_user is defined
+
+- name: Clean up the Quicklisp setup file
+  file: path=/tmp/quicklisp.lisp state=absent
+
