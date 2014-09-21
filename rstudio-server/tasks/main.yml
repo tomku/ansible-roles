@@ -10,31 +10,11 @@
     - libapparmor1
     - libcurl4-gnutls-dev
 
-- name: Download 32-bit RStudio
-  get_url: url=http://download2.rstudio.org/rstudio-server-{{ rstudio_version }}-i386.deb
-           dest=/tmp/rstudio-{{ rstudio_version }}.deb
-  when: rstudio_installed|failed and ansible_architecture == "i386"
-
-- name: Download 64-bit RStudio
-  get_url: url=http://download2.rstudio.org/rstudio-server-{{ rstudio_version }}-amd64.deb
-           dest=/tmp/rstudio-{{ rstudio_version }}.deb
-  when: rstudio_installed|failed and ansible_architecture == "x86_64"
-
-- name: Install RStudio
-  apt: deb=/tmp/rstudio-{{ rstudio_version }}.deb
+- include: rstudio_install.yml
   when: rstudio_installed|failed
 
 - name: Clean up the RStudio package
   file: path=/tmp/rstudio-{{ rstudio_version }}.deb state=absent
 
-- name: Create the RStudio configuration directory
-  file: path=/home/{{ interactive_user }}/.rstudio/monitored/user-settings state=directory
-        owner={{ interactive_user}} group={{ interactive_user }} mode=0775
-  when: interactive_user == "vagrant"
-
-- name: Set up RStudio to serve from /vagrant
-  lineinfile: dest=/home/{{ interactive_user }}/.rstudio/monitored/user-settings/user-settings
-              create=yes state=present regexp="^initialWorkingDirectory="
-              owner={{ interactive_user}} group={{ interactive_user }}
-              line="initialWorkingDirectory=/vagrant"
-  when: interactive_user == "vagrant"
+- include: rstudio_vagrant.yml
+  when: interactive_user is defined and interactive_user == "vagrant"

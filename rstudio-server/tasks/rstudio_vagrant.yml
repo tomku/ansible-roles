@@ -1,0 +1,10 @@
+---
+- name: Create the RStudio configuration directory
+  file: path=/home/{{ interactive_user }}/.rstudio/monitored/user-settings state=directory
+        owner={{ interactive_user}} group={{ interactive_user }} mode=0775
+
+- name: Set up RStudio to serve from /vagrant
+  lineinfile: dest=/home/{{ interactive_user }}/.rstudio/monitored/user-settings/user-settings
+              create=yes state=present regexp="^initialWorkingDirectory="
+              owner={{ interactive_user}} group={{ interactive_user }}
+              line="initialWorkingDirectory=/vagrant"
