@@ -1,4 +1,2 @@
 ---
 ocaml_initialize_opam: True
-
-interactive_user: False
