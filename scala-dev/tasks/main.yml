@@ -1,4 +1,3 @@
-
 ---
 - name: Check if sbt is installed
   shell: sbt --version | grep "sbt launcher version {{ sbt_version }}$"
@@ -19,7 +18,13 @@
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: sbt help creates=/home/{{ interactive_user }}/.sbt
-  when: interactive_user and initialize_sbt and sbt_installed|failed
+  when: interactive_user is defined and initialize_sbt
+
+- name: Set the default version of Scala
+  lineinfile: dest=/home/{{ interactive_user }}/.sbt/{{ sbt_version.rpartition('.')[0] }}/global.sbt
+              line='scalaVersion := "{{ default_scala_version }}"'
+              regexp='^scalaVersion'
+  when: default_scala_version is defined
 
 - name: Clean up the sbt package
   file: path=/tmp/sbt-{{ sbt_version }}.deb state=absent
