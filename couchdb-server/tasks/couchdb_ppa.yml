@@ -4,3 +4,4 @@
 
 - name: Install the CouchDB package
   apt: name=couchdb state=present
+

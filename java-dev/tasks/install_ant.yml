@@ -8,3 +8,4 @@
 
 - name: Clean up Ant's archive
   file: path=/tmp/ant-{{ ant_version }}.tar.bz2 state=absent
+

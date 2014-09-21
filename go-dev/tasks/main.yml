@@ -31,3 +31,4 @@
   file: path=/tmp/go-{{ go_version }}.tar.gz state=absent
 
 # TODO: Figure out if I should be setting $GOPATH, possibly to /vagrant
+

@@ -6,7 +6,7 @@
   apt: upgrade=dist
 
 - name: Install useful packages
-  apt: pkg={{ item }} state=present
+  apt: name={{ item }} state=present
   with_items:
     - tmux
     - tree
@@ -33,11 +33,11 @@
     - valgrind
 
 - name: Install ZMQ2
-  apt: pkg=libzmq-dev state=present
+  apt: name=libzmq-dev state=present
   when: ansible_distribution_version|version_compare('13.10', '<')
 
 - name: Install ZMQ3
-  apt: pkg=libzmq3-dev state=present
+  apt: name=libzmq3-dev state=present
   when: ansible_distribution_version|version_compare('13.10', '>=')
 
 - name: Add the Silver Searcher PPA
@@ -45,10 +45,11 @@
   when: ansible_distribution_version|version_compare('14.04', '==')
 
 - name: Install The Silver Searcher
-  apt: pkg=silversearcher-ag state=present
+  apt: name=silversearcher-ag state=present
   when: ansible_distribution_version|version_compare('14.04', '==')
 
 - name: Install standalone Ack
   get_url: url=http://beyondgrep.com/ack-2.14-single-file
            dest=/usr/local/bin/ack
            owner=root group=root mode=0755
+

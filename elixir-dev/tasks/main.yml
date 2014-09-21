@@ -21,3 +21,4 @@
 
 - name: Clean up the Elixir archive
   file: path=/tmp/elixir-{{ elixir_version }}.zip state=absent
+

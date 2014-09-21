@@ -3,7 +3,7 @@
   apt_repository: repo=ppa:nginx/stable
 
 - name: Install nginx
-  apt: pkg=nginx state=present
+  apt: name=nginx state=present
   notify: Start nginx
 
 - name: Add the vagrant folder as an available vhost
@@ -23,5 +23,5 @@
   when: interactive_user|default("") == "vagrant"
 
 - name: Install php for nginx
-  apt: pkg=php5-fpm state=present
+  apt: name=php5-fpm state=present
 

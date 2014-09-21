@@ -28,3 +28,4 @@
 
 - name: Clean up the sbt package
   file: path=/tmp/sbt-{{ sbt_version }}.deb state=absent
+

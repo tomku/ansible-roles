@@ -4,7 +4,7 @@
   when: ansible_distribution_version|version_compare("13.10", "<=")
 
 - name: Install the OPAM and Ocaml packages
-  apt: pkg={{ item }} state=present
+  apt: name={{ item }} state=present
   with_items:
     - curl
     - build-essential
@@ -18,3 +18,4 @@
   sudo: True
   shell: opam init -a creates=/home/{{ interactive_user }}/.opam
   when: interactive_user is defined and ocaml_initialize_opam
+

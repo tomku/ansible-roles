@@ -18,3 +18,4 @@
 
 - name: Enable and start the Elasticsearch service
   service: name=elasticsearch enabled=yes state=started
+

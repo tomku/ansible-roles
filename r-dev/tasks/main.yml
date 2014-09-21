@@ -6,4 +6,5 @@
   apt_repository: repo="deb {{ cran_mirror }}/bin/linux/ubuntu {{ ansible_distribution_release }}/" state=present
 
 - name: Install R's packages
-  apt: pkg=r-recommended state=present
+  apt: name=r-recommended state=present
+

@@ -17,7 +17,7 @@
   when: ansible_architecture == "x86_64" and io_installed|failed
 
 - name: Install unzip
-  apt: pkg=unzip state=present
+  apt: name=unzip state=present
 
 - name: Unzip the io package
   unarchive: src=/tmp/iobin.zip dest=/tmp
@@ -37,3 +37,4 @@
     - iobin.zip
     - IoLanguage-{{ io_version }}-Linux-x86.deb
     - IoLanguage-{{ io_version }}-Linux-x64.deb
+

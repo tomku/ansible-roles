@@ -5,7 +5,7 @@
   ignore_errors: true
 
 - name: Install RStudio's prerequisites
-  apt: pkg={{ item }} state=installed
+  apt: name={{ item }} state=installed
   with_items:
     - libapparmor1
     - libcurl4-gnutls-dev
@@ -18,3 +18,4 @@
 
 - include: rstudio_vagrant.yml
   when: interactive_user is defined and interactive_user == "vagrant"
+

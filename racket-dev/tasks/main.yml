@@ -3,4 +3,5 @@
   apt_repository: repo=ppa:plt/racket state=present
 
 - name: Install the Racket package
-  apt: pkg=racket state=present
+  apt: name=racket state=present
+

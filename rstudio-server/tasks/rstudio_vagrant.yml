@@ -8,3 +8,4 @@
               create=yes state=present regexp="^initialWorkingDirectory="
               owner={{ interactive_user}} group={{ interactive_user }}
               line="initialWorkingDirectory=/vagrant"
+

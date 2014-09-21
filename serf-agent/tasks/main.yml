@@ -20,3 +20,4 @@
 
 - name: Clean up the Serf archive
   file: path=/tmp/serf-{{ serf_version }}.zip state=absent
+

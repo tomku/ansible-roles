@@ -8,3 +8,4 @@
 
 - name: Clean up Gradle's archive
   file: path=/tmp/gradle-{{ gradle_version }}.zip state=absent
+

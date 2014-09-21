@@ -8,3 +8,4 @@
 
 - name: Clean up Maven's archive
   file: path=/tmp/maven-{{ maven_version }}.tar.gz state=absent
+

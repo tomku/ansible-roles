@@ -1,4 +1,3 @@
-
 ---
 - name: Check if RabbitMQ is installed
   command: which rabbitmqctl
@@ -37,3 +36,4 @@
 - name: Clean up the RabbitMQ package
   file: path=/tmp/rabbitmq-server_{{ rabbitmq_version }}-1_all.deb state=absent
   when: rabbitmq_version is defined
+

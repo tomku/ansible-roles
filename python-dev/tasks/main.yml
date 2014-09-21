@@ -25,7 +25,7 @@
   apt_repository: repo=ppa:pypy/ppa state=present
 
 - name: Install the PyPy package
-  apt: pkg=pypy state=present
+  apt: name=pypy state=present
 
 # TODO: Configure IPython to serve notebooks out of /vagrant
 

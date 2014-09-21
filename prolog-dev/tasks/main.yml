@@ -3,4 +3,5 @@
   apt_repository: repo=ppa:swi-prolog/stable state=present
 
 - name: Install the SWI-Prolog package
-  apt: pkg=swi-prolog state=present
+  apt: name=swi-prolog state=present
+

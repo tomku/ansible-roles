@@ -6,7 +6,8 @@
   apt_repository: repo='deb http://get.docker.io/ubuntu docker main' state=present
 
 - name: Install the Docker package
-  apt: pkg=lxc-docker state=present
+  apt: name=lxc-docker state=present
 
 - name: Start the Docker service
   service: name=docker state=started enabled=yes
+

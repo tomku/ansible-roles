@@ -1,6 +1,6 @@
 ---
 - name: Install prerequisitives for CouchDB
-  apt: pkg={{ item }}
+  apt: name={{ item }}
   with_items:
     - g++
     - libmozjs185-dev
@@ -50,3 +50,4 @@
     - log
     - lib
     - run
+

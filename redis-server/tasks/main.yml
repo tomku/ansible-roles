@@ -3,5 +3,5 @@
   apt_repository: repo="ppa:chris-lea/redis-server" state=present
 
 - name: Install the Redis package
-  apt: pkg=redis-server state=present
+  apt: name=redis-server state=present
 

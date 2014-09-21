@@ -18,3 +18,4 @@
 
 - name: Clean up the Digital Mars D package
   file: path=/tmp/dmd_{{ dmd_version }}.deb state=absent
+

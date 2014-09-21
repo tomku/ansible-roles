@@ -6,7 +6,8 @@
   apt_repository: repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" state=present
 
 - name: Install the MongoDB package
-  apt: pkg=mongodb-10gen state=present
+  apt: name=mongodb-10gen state=present
 
 - name: Ensure the MongoDB service is started and enabled
   service: name=mongodb state=started enabled=true
+

@@ -1,4 +1,3 @@
-
 ---
 - name: Check if Groovy is installed
   shell: stat /opt/groovy-{{ groovy_version }}/bin/groovy
@@ -19,3 +18,4 @@
 
 - name: Clean up the Groovy archive
   file: path=/tmp/groovy-{{ groovy_version }}.zip state=absent
+
