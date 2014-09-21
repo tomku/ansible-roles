@@ -11,7 +11,3 @@
     - postgresql-9.3
     - libpq-dev
     - python-psycopg2
-
-- name: Ensure logrotate is uninstalled
-  apt: pkg=logrotate state=absent
-  when: ansible_distribution_release != "precise" and ansible_distribution_release != "trusty"
