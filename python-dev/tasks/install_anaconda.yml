@@ -1,0 +1,28 @@
+- name: Download Anaconda (32-bit)
+  get_url: url=http://repo.continuum.io/miniconda/Miniconda-3.6.0-Linux-x86.sh
+           dest=/tmp/Miniconda-Linux.sh
+           owner=root group=root mode=0755
+  when: ansible_architecture == "i386"
+
+- name: Download Anaconda (64-bit)
+  get_url: url=http://repo.continuum.io/miniconda/Miniconda-3.6.0-Linux-x86_64.sh
+           dest=/tmp/Miniconda-Linux.sh
+           owner=root group=root mode=0755
+  when: ansible_architecture == "x86_64"
+
+- name: Install Conda
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: bash /tmp/Miniconda-Linux.sh -b -p /home/{{ interactive_user }}/.python creates=/home/{{ interactive_user }}/.python
+
+- name: Install full Anaconda
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: /home/{{ interactive_user }}/.python/bin/conda install --yes -q anaconda
+  when: full_anaconda
+
+- name: Update Conda
+  sudo: True
+  sudo_user: "{{ interactive_user }}"
+  command: /home/{{ interactive_user }}/.python/bin/conda update --yes -q conda
+  when: not full_anaconda

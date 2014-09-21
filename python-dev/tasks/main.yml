@@ -1,43 +1,25 @@
 ---
-- name: Download Anaconda (32-bit)
-  get_url: url=http://repo.continuum.io/miniconda/Miniconda-3.6.0-Linux-x86.sh
-           dest=/tmp/Miniconda-Linux.sh
-           owner=root group=root mode=0755
-  when: ansible_architecture == "i386" and interactive_user != false
+- name: Check to see if Anaconda is installed
+  command: stat /home/{{ interactive_user }}/.python/bin/python
+  register: anaconda_installed
+  ignore_errors: true
+  when: interactive_user is defined
 
-- name: Download Anaconda (64-bit)
-  get_url: url=http://repo.continuum.io/miniconda/Miniconda-3.6.0-Linux-x86_64.sh
-           dest=/tmp/Miniconda-Linux.sh
-           owner=root group=root mode=0755
-  when: ansible_architecture == "x86_64" and interactive_user != false
-
-- name: Install Conda
-  sudo: True
-  sudo_user: "{{ interactive_user }}"
-  command: bash /tmp/Miniconda-Linux.sh -b -p /home/{{ interactive_user }}/.python creates=/home/{{ interactive_user }}/.python
-  when: interactive_user != false
-
-- name: Install full Anaconda
-  sudo: True
-  sudo_user: "{{ interactive_user }}"
-  command: /home/{{ interactive_user }}/.python/bin/conda install --yes -q anaconda
-  when: interactive_user != false and full_anaconda
-
-- name: Update Conda
-  sudo: True
-  sudo_user: "{{ interactive_user }}"
-  command: /home/{{ interactive_user }}/.python/bin/conda update --yes -q conda
-  when: interactive_user != false and full_anaconda == false
+- include: install_anaconda.yml
+  when: interactive_user is defined and not anaconda_installed
 
 - name: Uninstall Anaconda's cURL
   sudo: True
   sudo_user: "{{ interactive_user }}"
   command: /home/{{ interactive_user }}/.python/bin/conda remove --yes -q curl
-  when: interactive_user != false and full_anaconda
+  when: interactive_user is defined and full_anaconda
+
+- name: Clean up Anaconda's installer
+  file: path=/tmp/Miniconda-Linux.sh state=absent
 
 - name: Install pythonpy
   pip: name=pythonpy executable=/home/{{ interactive_user }}/.python/bin/pip state=present
-  when: interactive_user != false
+  when: interactive_user is defined
 
 - name: Add the PyPy PPA
   apt_repository: repo=ppa:pypy/ppa state=present
