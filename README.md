@@ -26,34 +26,34 @@ The 'zero-disk' role should only be used as a final step before packaging a Vagr
 
 ## Interactive Users
 
-Several roles have optional tasks which initialize something for a particular user.  They use the variable 'interactive_user' to determine which user to operate as. Currently, the tasks only support a single interactive user per run.
+Several roles have optional tasks which initialize something for a particular user.  They use the variable `interactive_user` to determine which user to operate as. Currently, the tasks only support a single interactive user per run.
+
+### clojure-dev
+The 'clojure-dev' role can optionally run a no-op task for lein to force it to install its jars, so that future invocations by that user can work without requiring a download.  This behavior is controlled by the boolean variable `initialize_lein`, which default to true when an interactive user is defined.
 
 ### dotfiles
 
-Every task in dotfiles requires 'interactive_user' to be set.
+Every task in dotfiles requires `interactive_user` to be set.
 
 ### haskell-dev
 
-The 'haskell-dev' role can optionally initialize cabal's package list.  This is currently performed whenever 'interactive_user' is set.
-
-### scala-dev
-
-The 'scala-dev' role can optionally run a no-op task for sbt to force it to install its jars, so that future invocations by that user can work without requiring a download.  This behavior is controlled by the boolean variable 'initialize_sbt', which default to true when an interactive user is defined.
-
-### clojure-dev
-The 'clojure-dev' role can optionally run a no-op task for lein to force it to install its jars, so that future invocations by that user can work without requiring a download.  This behavior is controlled by the boolean variable 'initialize_lein', which default to true when an interactive user is defined.
+The 'haskell-dev' role can optionally initialize cabal's package list.  This is currently performed whenever `interactive_user` is set.
 
 ### lisp-dev
 
-The 'lisp-dev' role can optionally install Quicklisp for a user and add Quicklisp's initialization code to the user's .sbclrc file.  This is currently performed whenever 'interactive_user' is set.
+The 'lisp-dev' role can optionally install Quicklisp for a user and add Quicklisp's initialization code to the user's .sbclrc file.  This is currently performed whenever `interactive_user` is set.
 
 ### ocaml-dev
 
-The 'ocaml-dev' role can optionally initialize opam's package and compiler lists.  This behavior is controlled by the boolean variable 'ocaml_initialize_opam'.
+The 'ocaml-dev' role can optionally initialize opam's package and compiler lists.  This behavior is controlled by the boolean variable `ocaml_initialize_opam`.
 
 ### python-dev
 
-The 'python-dev' role installs Anaconda to the home directory specified by 'interactive_user'.
+The 'python-dev' role installs Anaconda to the home directory specified by `interactive_user`.
+
+### scala-dev
+
+The 'scala-dev' role can optionally run a no-op task for sbt to force it to install its jars, so that future invocations by that user can work without requiring a download.  This behavior is controlled by the boolean variable `initialize_sbt`, which default to true when an interactive user is defined.
 
 ## Vagrant
 
@@ -61,103 +61,83 @@ Some roles have special cases for when they're being run in a [Vagrant](http://w
 
 ### nginx-server
 
-When the interactive user is 'vagrant', this role configures the default nginx vhost to serve out of /vagrant/www/.
-
-### uwsgi-server
-
-When the interactive user is 'vagrant', this role configures uwsgi-emperor to look for uwsgi configuration files named /vagrant/uwsgi-\*.\*.
+When the interactive user is `vagrant`, this role configures the default nginx vhost to serve out of `/vagrant/www/`.
 
 ### rstudio-server
 
-When the interactive user is 'vagrant', this role configures RStudio Server to default new sessions to starting in /vagrant.
+When the interactive user is `vagrant`, this role configures RStudio Server to default new sessions to starting in `/vagrant`.
+
+### uwsgi-server
+
+When the interactive user is `vagrant`, this role configures uwsgi-emperor to look for uwsgi configuration files named `/vagrant/uwsgi-*.*`.
+
+## Apache Mirrors
+
+The roles listed below download packages or archives from Apache mirrors.  The specific mirror can be set by the `apache_mirror` variable.  The contents should be a URL from the [Apache mirror list](http://www.apache.org/mirrors/) with no project-specific component added on.  The Apache project also provides a [page](http://www.apache.org/dyn/closer.cgi) that suggests a close mirror.
+
+- couchdb
+- java-dev (Maven, Ant)
+
+## Versions
+
+The following roles allow a particular version to be chosen for installation by setting the appropriate variable.  Version numbers should always be quoted in YAML because they may not be legal floating point numbers.
+
+- couchdb: `couchdb_version`
+- d-dev: `dmd_version` (See note below)
+- elasticsearch-server: `elasticsearch_version`
+- elixir-dev: `elixir_version`
+- go-dev: `go_version`
+- groovy-dev: `groovy_version`
+- io-dev: `io_version` (From package filename, may not match REPL version)
+- java-dev: `maven_version`, `ant_version` and `gradle_version`
+- jruby-dev: `jruby_version`
+- oracle-jdk: `jdk_version` (Major version only)
+- packer: `packer_version`
+- rabbitmq-server: `rabbitmq_version`
+- rstudio-server: `rstudio_version`
+- ruby-dev: `ruby_version` (1.8, 1.9.1, 2.0 or 2.1)
+- rust-dev: `rust_version` ("nightly" is also an option)
+- sbt-dev: `sbt_version` and `default_scala_version`
+- serf-agent: `serf_version`
+- vagrant: `vagrant_version`
+- virtualbox: `virtualbox_version` (Major and minor version only)
 
 ## Other Variables
 
 ### couchdb-server
 
-The 'couchdb_source_install' boolean variable controls whether CouchDB is installed via a PPA or from a source tarball.  The default is to use the PPA.
-
-The 'couchdb_version' variable specifies which version of CouchDB to install, when installing from source.
-
-The 'apache_mirror' variable specifies which Apache mirror to use to download the CouchDB source tarball.  The contents should be a URL from the [Apache mirror list](http://www.apache.org/mirrors/) with no project-specific component added on.  The Apache project also provides a [page](http://www.apache.org/dyn/closer.cgi) that suggests a close mirror.
+The `couchdb_source_install` boolean variable controls whether CouchDB is installed via a PPA or from a source tarball.  The default is to use the PPA.
 
 ### d-dev
 
-The 'dmd_version' variable specifies which version of the D compiler to install, and the 'dmd_year' version needs to match the year in which that version was released.  This is unfortunately necessary because D's download URLs contain the year, and even if I asked you to put in the full URL instead, I would still need the version specified so Ansible can know whether the proper version is already installed.
-
-### elasticsearch-server
-
-The 'elasticsearch_version' variable specifies which version of Elasticsearch to install.
-
-### elixir-dev
-
-The 'elixir_version' variable specifies which version of Elixir to install.
+The `dmd_version` variable specifies which version of the D compiler to install, and the `dmd_year` version needs to match the year in which that version was released.  This is unfortunately necessary because D's download URLs contain the year, and even if I asked you to put in the full URL instead, I would still need the version specified so Ansible can know whether the proper version is already installed.
 
 ### erlang-dev
 
-The 'erlang_use_hipe' boolean variable determines whether or not Erlang packages with HiPE (High-Performance Erlang, a native-code compiler) are installed.
-
-### go-dev
-
-The 'go_version' variable specifies which version of Go to install.
-
-### groovy-dev
-
-The variable 'groovy_version' specifies which version of Groovy to install.
-
-### io-dev
-
-The 'io_version' variable specifies the version of Io to look for in the package filename.  This version may be different than the version printed out by the Io REPL.
-
-### scala-dev
-
-The variable 'sbt_version' specifies which version of sbt to install.
-
-### jruby-dev
-
-The variable 'jruby_version' specifies which version of JRuby to install.
-
-### jvm-dev
-
-The variables 'maven_version', 'ant_version' and 'gradle_version' specify which version of each to install.
-
-The 'apache_mirror' variable specifies which Apache mirror to use.  The contents should be a URL from the [Apache mirror list](http://www.apache.org/mirrors/) with no project-specific component added on.  The Apache project also provides a [page](http://www.apache.org/dyn/closer.cgi) that suggests a close mirror.
+The `erlang_use_hipe` boolean variable determines whether or not Erlang packages with HiPE (High-Performance Erlang, a native-code compiler) are installed.
 
 ### oracle-jdk
 
-The variable 'jdk_version' controls which version of the Oracle JDK is installed and set as the default.  The available options are current '6', '7' and '8' with '7' being the default.
-
-The variable 'accepted_oracle_license' reflects whether you've accepted the [Java SE license](http://www.oracle.com/technetwork/java/javase/terms/license/index.html) that Oracle requires prior to downloading.  This defaults to false because I can't accept the license for you, and needs to be set to true in order for any of the Java-related roles to successfully run.
+The variable `accepted_oracle_license` reflects whether you've accepted the [Java SE license](http://www.oracle.com/technetwork/java/javase/terms/license/index.html) that Oracle requires prior to downloading.  This defaults to false because I can't accept the license for you, and needs to be set to true in order for any of the Java-related roles to successfully run.
 
 ### python-dev
 
-The 'full_anaconda' boolean variable controls whether the full Anaconda Python distribution is installed rather than just the minimal distribution.  This option adds a substantial amount of time to the build process and uses several hundred megabytes of disk space.
+The `full_anaconda` boolean variable controls whether the full Anaconda Python distribution is installed rather than just the minimal distribution.  This option adds a substantial amount of time to the build process and uses several hundred megabytes of disk space.
 
 ### r-dev
 
-The 'cran_mirror' variable specifies which CRAN mirror to use.  The contents should be a URL from the [CRAN mirror list](http://cran.r-project.org/mirrors.html) without any further path information added on.
-
-### rstudio-server
-
-The 'rstudio_version' variable specifies which version of RStudio to install.
+The `cran_mirror` variable specifies which CRAN mirror to use.  The contents should be a URL from the [CRAN mirror list](http://cran.r-project.org/mirrors.html) without any further path information added on.
 
 ### ruby-dev
 
-The 'ruby_version' variable controls which version of Ruby should be installed.  The value should be a bare version string like "1.9.1" or "2.1".
-
 As is normal for Debian/Ubuntu Ruby packages, ruby1.9.1 actually installs the newest release in the 1.9 series that is API-compatible with 1.9.1, which is currently 1.9.3.
 
-### rust-dev
+### virtualbox
 
-The 'rust-version' variable specifies which version of Rust to install.
-
-### serf-agent
-
-The 'serf_version' variable specifies which version of Serf to install.
+If you'd like to install the Oracle VM VirtualBox Extension Pack to add RDP and several other features to VirtualBox, you'll have to specify the URL to the .vbox-extpack file in the `virtualbox_extpack_url` variable.  I don't do this by default because it's distributed under a [restrictive license](https://www.virtualbox.org/wiki/VirtualBox_PUEL).
 
 ## Future Plans
 
-* Proper checks to see whether something is installed, to avoid unnecessary downloads to /tmp. (In progress)
 * Complete reworking of the 'python-dev' role.
 * Figure out some reasonable Python/Ruby packages to preinstall.
 * Roles to stand up IPython and IJulia instances.
