@@ -21,6 +21,9 @@
   unarchive: src=/tmp/packer-{{ packer_version }}.zip dest=/opt/packer-{{ packer_version }}/
   when: packer_installed|failed
 
+- name: Fix file name error in some Packer archives
+  shell: if [ -f packer-packer ] ; then mv packer-packer packer ; fi chdir=/opt/packer-{{ packer_version }}
+
 - name: Clean up the Packer archive
   file: path=/tmp/packer-{{ packer_version }}.zip state=absent
 
