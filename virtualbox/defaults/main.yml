@@ -1,0 +1,12 @@
+---
+# Should be "major.minor", not a full version like "4.3.16"
+virtualbox_version: "4.3"
+
+# Set this to download and install the Oracle VM VirtualBox Extension pack.
+#
+# Be warned that the extension pack is under a different license than regular
+# VirtualBox.
+#
+# That license is available here: https://www.virtualbox.org/wiki/VirtualBox_PUEL
+# virtualbox_extpack_url: <url>
+

@@ -1,0 +1,29 @@
+---
+- name: Check if Packer is installed
+  shell: stat /opt/packer-{{ packer_version }}/packer
+  register: packer_installed
+  ignore_errors: true
+
+- name: Get the 32-bit Packer distribution
+  get_url: url=https://dl.bintray.com/mitchellh/packer/{{ packer_version }}_linux_386.zip
+           dest=/tmp/packer-{{ packer_version }}.zip
+  when: ansible_architecture == "i386" and packer_installed|failed
+
+- name: Get the 64-bit Packer distribution
+  get_url: url=https://dl.bintray.com/mitchellh/packer/{{ packer_version }}_linux_amd64.zip
+           dest=/tmp/packer-{{ packer_version }}.zip
+  when: ansible_architecture == "x86_64" and packer_installed|failed
+
+- name: Create the Packer directory
+  file: path=/opt/packer-{{ packer_version }} state=directory
+
+- name: Unpack the Packer distribution
+  unarchive: src=/tmp/packer-{{ packer_version }}.zip dest=/opt/packer-{{ packer_version }}/
+  when: packer_installed|failed
+
+- name: Clean up the Packer archive
+  file: path=/tmp/packer-{{ packer_version }}.zip state=absent
+
+- name: Add Packer's bin directory to the system path
+  template: src=packer.sh.j2 dest=/etc/profile.d/packer.sh
+

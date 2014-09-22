@@ -1,0 +1,10 @@
+---
+- name: Download the VirtualBox extension pack
+  get_url: url={{ virtualbox_extpack_url }} dest='/tmp/Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack'
+
+- name: Install the VirtualBox extension pack
+  command: VBoxManage extpack install --replace '/tmp/Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack'
+
+- name: Clean up the VirtualBox extension pack archive
+  file: path='/tmp/Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack' state=absent
+

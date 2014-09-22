@@ -1,0 +1,16 @@
+---
+- name: Add the VirtualBox apt key
+  apt_key: id=98AB5139 url=https://www.virtualbox.org/download/oracle_vbox.asc state=present
+
+- name: Add the VirtualBox repository
+  apt_repository: repo='deb http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib' state=present
+
+- name: Install the VirtualBox package
+  apt: name={{ item }} state=latest
+  with_items:
+    - virtualbox-{{ virtualbox_version }}
+    - dkms
+
+- include: virtualbox_extpack.yml
+  when: virtualbox_extpack_url is defined
+
