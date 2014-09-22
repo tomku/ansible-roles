@@ -6,12 +6,11 @@
   apt: name={{ item }} state=present
   with_items:
    - uwsgi-plugin-python
-   - uwsgi-plugin-rack-ruby1.9.1
    - uwsgi-emperor
 
 - name: Configure uwsgi to run apps from the vagrant folder
   template: src=emperor.ini.j2
             dest=/etc/uwsgi-emperor/emperor.ini
   notify: Reload uwsgi
-  when: interactive_user == "vagrant"
+  when: interactive_user is defined and interactive_user == "vagrant"
 
