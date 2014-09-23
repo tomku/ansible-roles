@@ -1,6 +1,17 @@
 ---
-- name: Install the Haskell Platform
-  apt: name=haskell-platform state=present
+- name: Add the unofficial GHC PPA
+  apt_repository: repo="ppa:hvr/ghc" state=present
+
+- name: Install the basic Haskell packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - alex-{{ alex_version }}
+    - ghc-{{ ghc_version }}
+    - happy-{{ happy_version }}
+    - cabal-install-{{ cabal_install_version }}
+
+- name: Add the Haskell tools to $PATH
+  template: src=haskell.sh.j2 dest=/etc/profile.d/haskell.sh
 
 - name: Update cabal's cache
   sudo: True
