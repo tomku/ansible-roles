@@ -26,3 +26,11 @@
     - ruby2.1-doc
   when: ruby_version == "2.1"
 
+- name: Install Ruby 2.2
+  apt: name={{ item }}
+  with_items:
+    - ruby2.2
+    - ruby2.2-dev
+    - ruby2.2-doc
+  when: ruby_version == "2.2"
+
