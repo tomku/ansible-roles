@@ -1,6 +1,6 @@
 ---
 - name: Check if Vagrant is installed
-  shell: /usr/bin/vagrant version | grep 'Vagrant {{ vagrant_version }}'
+  shell: /usr/bin/vagrant -v | grep 'Vagrant {{ vagrant_version }}'
   register: vagrant_installed
   ignore_errors: true
 
@@ -16,6 +16,7 @@
 
 - name: Remove any existing Vagrant installation
   apt: name=vagrant state=absent
+  when: vagrant_installed|failed
 
 - name: Install the Vagrant package
   apt: deb=/tmp/vagrant-{{ vagrant_version }}.deb
