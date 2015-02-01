@@ -5,12 +5,12 @@
   ignore_errors: true
 
 - name: Get the 32-bit Packer distribution
-  get_url: url=https://dl.bintray.com/mitchellh/packer/{{ packer_version }}_linux_386.zip
+  get_url: url=https://dl.bintray.com/mitchellh/packer/packer_{{ packer_version }}_linux_386.zip
            dest=/tmp/packer-{{ packer_version }}.zip
   when: ansible_architecture == "i386" and packer_installed|failed
 
 - name: Get the 64-bit Packer distribution
-  get_url: url=https://dl.bintray.com/mitchellh/packer/{{ packer_version }}_linux_amd64.zip
+  get_url: url=https://dl.bintray.com/mitchellh/packer/packer_{{ packer_version }}_linux_amd64.zip
            dest=/tmp/packer-{{ packer_version }}.zip
   when: ansible_architecture == "x86_64" and packer_installed|failed
 
