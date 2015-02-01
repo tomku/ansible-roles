@@ -4,7 +4,7 @@
 
 - name: Add the Ubuntu Toolchain test PPA
   apt_repository: repo=ppa:ubuntu-toolchain-r/test state=present
-  when: ansible_distribution_version|float < 13.10
+  when: ansible_distribution_release == "precise"
 
 - name: Add the llvm PPA
   apt_repository: repo="deb http://llvm.org/apt/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }} main" state=present
@@ -12,9 +12,9 @@
 - name: Install the LLVM/Clang packages
   apt: name={{ item }} state=present
   with_items:
-    - clang-3.4
-    - clang-3.4-doc
-    - lldb-3.4
-    - llvm-3.4
-    - llvm-3.4-doc
+    - clang-3.5
+    - clang-3.5-doc
+    - lldb-3.5
+    - llvm-3.5
+    - llvm-3.5-doc
 
