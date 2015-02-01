@@ -16,6 +16,11 @@
 - name: Clean up the Elasticsearch package
   file: path=/tmp/elasticsearch-{{ elasticsearch_version }}.deb state=absent
 
+- name: Enable and restart the Elasticsearch service
+  service: name=elasticsearch enabled=yes state=restarted
+  when: elasticsearch_installed|failed
+
 - name: Enable and start the Elasticsearch service
   service: name=elasticsearch enabled=yes state=started
+  when: elasticsearch_installed
 
