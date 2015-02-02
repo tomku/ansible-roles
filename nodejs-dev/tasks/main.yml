@@ -1,6 +1,9 @@
 ---
-- name: Add the Node PPA
-  apt_repository: repo="ppa:chris-lea/node.js"
+- name: Add the NodeSource APT key
+  apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key state=present
+
+- name: Add the NodeSource repo
+  apt_repository: repo="deb https://deb.nodesource.com/node {{ ansible_distribution_release }} main" state=present
 
 - name: Install Node.js
   apt: name=nodejs state=present
