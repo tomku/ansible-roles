@@ -5,7 +5,7 @@
   ignore_errors: true
 
 - name: Download JRuby
-  get_url: url=http://jruby.org.s3.amazonaws.com/downloads/{{ jruby_version }}/jruby-bin-{{ jruby_version }}.tar.gz
+  get_url: url=http://s3.amazonaws.com/jruby.org/downloads/{{ jruby_version }}/jruby-bin-{{ jruby_version }}.tar.gz
            dest=/tmp/jruby-{{ jruby_version }}.tar.gz
   when: jruby_installed|failed
 
