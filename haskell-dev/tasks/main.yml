@@ -2,6 +2,12 @@
 - name: Add the unofficial GHC PPA
   apt_repository: repo="ppa:hvr/ghc" state=present
 
+- name: Add the FP Complete apt key
+  apt_key: url=https://s3.amazonaws.com/download.fpcomplete.com/ubuntu/fpco.key state=present
+
+- name: Add the FP Complete repository
+  apt_repository: repo="deb http://download.fpcomplete.com/ubuntu/{{ ansible_distribution_release }} stable main" state=present
+
 - name: Install the basic Haskell packages
   apt: name={{ item }} state=latest
   with_items:
@@ -9,6 +15,7 @@
     - ghc-{{ ghc_version }}
     - happy-{{ happy_version }}
     - cabal-install-{{ cabal_install_version }}
+    - stack
 
 - name: Add the Haskell tools to $PATH
   template: src=haskell.sh.j2 dest=/etc/profile.d/haskell.sh
