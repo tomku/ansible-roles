@@ -5,6 +5,9 @@
 - name: Update all existing packages
   apt: upgrade=dist
 
+- name: Add the stable Git PPA
+  apt_repository: repo="ppa:git-core/ppa" state=present
+
 - name: Install useful packages
   apt: name={{ item }} state=present
   with_items:
@@ -25,7 +28,6 @@
     - pinfo
     - task
     - mercurial
-    - phantomjs
     - cscope
     - zsh
     - vim
