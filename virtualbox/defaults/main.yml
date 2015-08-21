@@ -1,6 +1,6 @@
 ---
 # Should be "major.minor", not a full version like "4.3.16"
-virtualbox_version: "4.3"
+virtualbox_version: "5.0"
 
 # Set this to download and install the Oracle VM VirtualBox Extension pack.
 #
