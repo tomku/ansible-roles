@@ -6,8 +6,13 @@
   apt_repository: repo="ppa:chris-lea/node.js" state=absent
 
 - name: Add the NodeSource repo
-  apt_repository: repo="deb https://deb.nodesource.com/node {{ ansible_distribution_release }} main" state=present
+  apt_repository: repo="deb https://deb.nodesource.com/{{ node_branch }} {{ ansible_distribution_release }} main" state=present
 
 - name: Install Node.js
   apt: name=nodejs state=present
+  when: '"node" in node_branch'
+
+- name: Install io.js
+  apt: name=iojs state=present
+  when: '"iojs" in node_branch'
 

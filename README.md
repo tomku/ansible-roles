@@ -91,16 +91,16 @@ The following roles allow a particular version to be chosen for installation by 
 - io-dev: `io_version` (From package filename, may not match REPL version)
 - java-dev: `maven_version`, `ant_version` and `gradle_version`
 - jruby-dev: `jruby_version`
+- nginx: `nginx_branch` (`stable` or `development`)
+- nodejs-dev: `node_branch` (`node_0.10`, `node_0.12`, `iojs_2.x`, `iojs_3.x`, etc
 - oracle-jdk: `jdk_version` (Major version only)
 - packer: `packer_version`
-- rabbitmq-server: `rabbitmq_version` (Optional, default is to use latest
-  from PPA)
+- rabbitmq-server: `rabbitmq_version` (Optional, default is to use latest from PPA)
 - rstudio-server: `rstudio_version`
 - ruby-dev: `ruby_version` (1.8, 1.9.1, 2.0 or 2.1)
 - serf-agent: `serf_version`
 - vagrant: `vagrant_version`
 - virtualbox: `virtualbox_version` (Major and minor version only)
-- nginx: `nginx_branch` (`stable` or `development`)
 
 ## Other Variables
 
