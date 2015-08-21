@@ -1,9 +1,9 @@
 ---
 - name: Add the Erlang Solutions APT key
-  apt_key: url=http://packages.erlang-solutions.com/debian/erlang_solutions.asc state=present
+  apt_key: url=http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc state=present
 
 - name: Add the Erlang Solutions APT repository
-  apt_repository: repo='deb http://binaries.erlang-solutions.com/debian {{ ansible_distribution_release }} contrib' state=present
+  apt_repository: repo='deb http://packages.erlang-solutions.com/ubuntu {{ ansible_distribution_release }} contrib' state=present
 
 - name: Install the Erlang Solutions erlang packages (with hipe)
   apt: name={{ item }} state=present
