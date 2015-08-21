@@ -12,9 +12,15 @@
 - name: Install the LLVM/Clang packages
   apt: name={{ item }} state=present
   with_items:
-    - clang-3.5
-    - clang-3.5-doc
-    - lldb-3.5
-    - llvm-3.5
-    - llvm-3.5-doc
+    - clang-3.6
+    - clang-3.6-doc
+    - lldb-3.6
+    - llvm-3.6
+    - llvm-3.6-doc
 
+- name: Create alternative links for LLVM and Clang
+  alternatives: name={{ item }} link=/usr/bin/{{ item }} path=/usr/bin/{{ item }}-3.6
+  with_items:
+    - clang
+    - clang++
+    - lldb
