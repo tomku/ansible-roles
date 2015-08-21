@@ -100,6 +100,7 @@ The following roles allow a particular version to be chosen for installation by 
 - serf-agent: `serf_version`
 - vagrant: `vagrant_version`
 - virtualbox: `virtualbox_version` (Major and minor version only)
+- nginx: `nginx_branch` (`stable` or `development`)
 
 ## Other Variables
 

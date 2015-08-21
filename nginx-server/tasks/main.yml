@@ -1,6 +1,6 @@
 ---
 - name: Add the nginx PPA
-  apt_repository: repo=ppa:nginx/stable
+  apt_repository: repo=ppa:nginx/{{ nginx_branch }} state=present
 
 - name: Install nginx
   apt: name=nginx state=present
