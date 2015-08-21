@@ -1,6 +1,6 @@
 ---
-alex_version: "3.1.3"
-happy_version: "1.19.4"
-ghc_version: "7.8.4"
-cabal_install_version: "1.20"
+alex_version: "3.1.4"
+happy_version: "1.19.5"
+ghc_version: "7.10.2"
+cabal_install_version: "1.22"
 
