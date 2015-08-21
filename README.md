@@ -84,7 +84,7 @@ The following roles allow a particular version to be chosen for installation by 
 
 - couchdb: `couchdb_version` (Only when building from source)
 - d-dev: `dmd_version` (See note below)
-- elasticsearch-server: `elasticsearch_version`
+- elasticsearch-server: `elasticsearch_version` (Only major.minor)
 - elixir-dev: `elixir_version`
 - go-dev: `go_version`
 - groovy-dev: `groovy_version`
