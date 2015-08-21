@@ -3,7 +3,7 @@
   get_url: url=http://static.rust-lang.org/rustup.sh dest=/tmp/rustup.sh owner=root group=root mode=0755
 
 - name: Install Rust
-  command: /tmp/rustup.sh
+  command: /tmp/rustup.sh -y
 
 - name: Clean up the installation script
   file: path=/tmp/rustup.sh state=absent
