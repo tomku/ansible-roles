@@ -5,7 +5,7 @@
   ignore_errors: true
 
 - name: Download Groovy
-  get_url: url=http://dl.bintray.com/groovy/maven/groovy-binary-{{ groovy_version }}.zip
+  get_url: url=http://dl.bintray.com/groovy/maven/apache-groovy-binary-{{ groovy_version }}.zip
            dest=/tmp/groovy-{{ groovy_version }}.zip
   when: groovy_installed|failed
 
