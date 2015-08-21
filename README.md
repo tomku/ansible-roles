@@ -82,7 +82,7 @@ The roles listed below download packages or archives from Apache mirrors.  The s
 
 The following roles allow a particular version to be chosen for installation by setting the appropriate variable.  Version numbers should always be quoted in YAML because they may not be legal floating point numbers.
 
-- couchdb: `couchdb_version`
+- couchdb: `couchdb_version` (Only when building from source)
 - d-dev: `dmd_version` (See note below)
 - elasticsearch-server: `elasticsearch_version`
 - elixir-dev: `elixir_version`
@@ -93,11 +93,10 @@ The following roles allow a particular version to be chosen for installation by 
 - jruby-dev: `jruby_version`
 - oracle-jdk: `jdk_version` (Major version only)
 - packer: `packer_version`
-- rabbitmq-server: `rabbitmq_version`
+- rabbitmq-server: `rabbitmq_version` (Optional, default is to use latest
+  from PPA)
 - rstudio-server: `rstudio_version`
 - ruby-dev: `ruby_version` (1.8, 1.9.1, 2.0 or 2.1)
-- rust-dev: `rust_version` ("nightly" is also an option)
-- sbt-dev: `sbt_version` and `default_scala_version`
 - serf-agent: `serf_version`
 - vagrant: `vagrant_version`
 - virtualbox: `virtualbox_version` (Major and minor version only)
@@ -141,7 +140,6 @@ If you'd like to install the Oracle VM VirtualBox Extension Pack to add RDP and 
 * Complete reworking of the 'python-dev' role.
 * Figure out some reasonable Python/Ruby packages to preinstall.
 * Roles to stand up IPython and IJulia instances.
-* Use a PPA for git to get more consistent versions.
 * Split PHP into its own role.
 * Add options for nightly/beta/snapshot versions as appropriate.
 * Add options to change ports for servers.
